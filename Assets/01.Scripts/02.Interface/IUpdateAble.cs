@@ -4,15 +4,9 @@ using UnityEngine;
 
 public interface IUpdateAble
 {
-    private void OnEnable()
-    {
-        Debug.Log("OnEnable");
-    }
+    protected void OnEnable();
 
-    private void OnDisable()
-    {
-        Debug.Log("OnDisable");
-    }
+    protected void OnDisable();
 
     public void OnUpdate();
 }

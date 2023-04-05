@@ -19,11 +19,10 @@ public class MonoSingleton<T> : MonoBehaviour where T : MonoSingleton<T>
             {
                 if (_instance == null)
                 {
-                    _instance = FindObjectOfType<T>();
+                    _instance ??= FindObjectOfType<T>();
                     if (_instance == null)
                     {
                         _instance = new GameObject(typeof(T).ToString()).AddComponent<T>();
-                        DontDestroyOnLoad(_instance);
                     }
                 }
                 return _instance;
@@ -32,7 +31,6 @@ public class MonoSingleton<T> : MonoBehaviour where T : MonoSingleton<T>
     }
     private void Start() {
         _shuttingDown = false;
-
     }
     private void OnDestroy()
     {
