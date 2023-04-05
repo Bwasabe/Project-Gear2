@@ -1,4 +1,6 @@
 using System;
+using System.Linq.Expressions;
+using System.Runtime.InteropServices;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
@@ -41,15 +43,24 @@ public static class Define
 
     public static Vector2 MousePos => MainCam.ScreenToWorldPoint(Input.mousePosition);
 
-    public static T GetRandomEnum<T>(int startPos = 0,int? length = null ) where T : System.Enum
+    public static T GetRandomEnum<T>(int startPos = 0, int? length = null) where T : System.Enum
     {
         Array values = Enum.GetValues(typeof(T));
-        if(length == null)
+        if (length == null)
         {
             return (T)values.GetValue(Random.Range(startPos, values.Length));
         }
         else
-            return (T)values.GetValue(Random.Range(startPos,length.Value));
+            return (T)values.GetValue(Random.Range(startPos, length.Value));
+    }
+    public static T StringToEnum<T>(this string enumString) where T : Enum
+    {
+        return (T)Enum.Parse(typeof(T), enumString);
+    }
+
+    public static T GetEnumValue<T>(this Enum e) where T : struct, IComparable, IFormattable, IConvertible, IComparable<T>, IEquatable<T>
+    {
+        return (T)(object)e;
     }
 
     public static Bound GetRandomBound(params Bound[] bounds)
@@ -78,6 +89,30 @@ public static class Define
 
         int rand = Random.Range(0, bounds.Length);
         return bounds[rand];
+    }
+
+    [StructLayout(LayoutKind.Explicit)]
+    struct EnumUnion32<T> where T : Enum
+    {
+        [FieldOffset(0)]
+        public T Enum;
+
+        [FieldOffset(0)]
+        public int Int;
+    }
+
+    public static int EnumToInt<T>(T e) where T : Enum
+    {
+        var unionDefault = default(EnumUnion32<T>);
+        unionDefault.Enum = e;
+        return unionDefault.Int;
+    }
+
+    public static T IntToEnum<T>(int value) where T : Enum
+    {
+        var unionDefault = default(EnumUnion32<T>);
+        unionDefault.Int = value;
+        return unionDefault.Enum;
     }
 }
 

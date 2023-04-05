@@ -4,9 +4,5 @@ using UnityEngine;
 
 public interface IUpdateAble
 {
-    protected void OnEnable();
-
-    protected void OnDisable();
-
     public void OnUpdate();
 }
