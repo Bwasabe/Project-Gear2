@@ -42,7 +42,7 @@ public class AnimationCtrl<T> where T : Enum
         public void SetAnimationState(T animationState)
         {
             _animationState = animationState;
-            Animator.SetInteger(STATE_HASH, Define.EnumToInt<T>(animationState));
+            Animator.SetInteger(STATE_HASH, animationState.GetEnumValue<int>());
         }
 
         public void SetAnimationStateOnce(T animationState)

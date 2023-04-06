@@ -24,7 +24,7 @@ public class UpdateManager : MonoSingleton<UpdateManager>
         if(!_updateAbleList.Contains(updateAble))
             _updateAbleList.Add(updateAble);
         else
-            Debug.Log("Updateable Object is already Registerd");
+            Debug.Log("Updateable Object is already Registered");
     }
 
     public void UnRegisterObject(IUpdateAble updateAble)

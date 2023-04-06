@@ -15,9 +15,11 @@ public class EnemyDamaged : BaseEntityDamaged
 
     protected override void Start() {
         base.Start();
+        
+        OnDamageTaken += OnDamageSpriteFlicker;
     }
 
-    private void OnDamageSpriteFlicker()
+    private void OnDamageSpriteFlicker(float damage)
     {
         if(_hp > 0)
         {

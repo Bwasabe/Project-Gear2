@@ -3,13 +3,18 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [RequireComponent(typeof(Rigidbody2D))]
-public class PlayerMove : BaseEntityMove, IUpdateAble
+public class PlayerMove : BaseEntityMove, IUpdateAble, IPlayerComponentAble
 {
 
     private Rigidbody2D _rb;
 
     private void Awake() {
         _rb = GetComponent<Rigidbody2D>();
+    }
+    
+    public void OnAwake(PlayerComponentController componentController)
+    {
+        
     }
 
     private void OnEnable() {
@@ -38,4 +43,5 @@ public class PlayerMove : BaseEntityMove, IUpdateAble
     {
         Move();
     }
+    
 }

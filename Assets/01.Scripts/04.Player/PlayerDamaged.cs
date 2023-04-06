@@ -4,27 +4,12 @@ using UnityEngine;
 using DG.Tweening;
 
 
-public class PlayerDamaged : BaseEntityDamaged
+public class PlayerDamaged : BaseEntityDamaged, IPlayerComponentAble
 {
-    [SerializeField]
-    private float _flickerTime = 0.1f;
 
-    private SpriteRenderer _spriteRenderer;
 
-    private void Awake() {
-        _spriteRenderer = GetComponentInChildren<SpriteRenderer>();
-    }
-
-    protected override void Start() {
-        base.Start();
-    }
-
-    private void OnDamageSpriteFlicker()
+    public void OnAwake(PlayerComponentController componentController)
     {
-        if(_hp > 0)
-        {
-            // TODO: Shader Graph or Sprite Mask로 Fade yoyo
-        }
+        
     }
-    
 }

@@ -4,12 +4,12 @@ using UnityEngine;
 
 public enum PlayerAnimationState
 {
-    Idle,
-    Attack,
+    Idle = 0,
+    Attack = 1,
 }
 
 [RequireComponent(typeof(Animator))]
-public class PlayerAnimation : MonoBehaviour
+public class PlayerAnimation : MonoBehaviour, IPlayerComponentAble
 {
     public AnimationCtrl<PlayerAnimationState> AnimationCtrl{get; private set;}
 
@@ -17,5 +17,9 @@ public class PlayerAnimation : MonoBehaviour
         Animator animator = GetComponent<Animator>();
 
         AnimationCtrl = new AnimationCtrl<PlayerAnimationState>(animator);
+    }
+    public void OnAwake(PlayerComponentController componentController)
+    {
+        
     }
 }

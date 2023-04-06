@@ -10,7 +10,7 @@ public abstract class BaseEntityDamaged : MonoBehaviour
 
     protected float _hp;
 
-    public event Action OnDamageTaken;
+    public event Action<float> OnDamageTaken;
 
     public event Action OnDied;
 
@@ -23,7 +23,7 @@ public abstract class BaseEntityDamaged : MonoBehaviour
     {
         _hp -= damage;
 
-        OnDamageTaken?.Invoke();
+        OnDamageTaken?.Invoke(damage);
 
         if(_hp <= 0f)
             OnDied?.Invoke();
