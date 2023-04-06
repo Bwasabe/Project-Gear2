@@ -4,22 +4,23 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [RequireComponent(typeof(Rigidbody2D))]
-public class CharacterMove : BaseEntityMove, IUpdateAble, ICharacterComponentAble
+public class CharacterMove : BaseEntityMove, IUpdateAble, IGetComponentAble
 {
     private Rigidbody2D _rb;
 
     private CharacterAttack _characterAttack;
-    private CharacterAnimation _characterAnimation;
-    private CharacterStateController _stateController;
+    private AnimationCtrl<PlayerAnimationState> _animationController;
+    private CharacterStateController _characterStateController;
     
     private void Awake() {
         _rb = GetComponent<Rigidbody2D>();
     }
 
-    public void InitializePlayerComponent(CharacterComponentController componentController)
+    public void InitializeComponent(CharacterComponentController componentController)
     {
-        _characterAnimation = componentController.GetPlayerComponent<CharacterAnimation>();
-        _stateController = componentController.GetPlayerComponent<CharacterStateController>();
+        _animationController = componentController.GetPlayerComponent<CharacterAnimationController>().AnimationCtrl;
+        
+        _characterStateController = componentController.GetPlayerComponent<CharacterStateController>();
         _characterAttack = componentController.GetPlayerComponent<CharacterAttack>();
     }
 
@@ -40,7 +41,7 @@ public class CharacterMove : BaseEntityMove, IUpdateAble, ICharacterComponentAbl
 
     protected override void Move()
     {
-        if(_characterAttack.Target == null || _stateController.HasState(CharacterState.Attack))
+        if(_characterAttack.Target == null || _characterStateController.HasState(CharacterState.Attack))
         {
             _rb.velocity = Vector2.zero;
 
@@ -53,27 +54,27 @@ public class CharacterMove : BaseEntityMove, IUpdateAble, ICharacterComponentAbl
     
     private void SetAnimationByVelocity()
     {
-        if(_stateController.HasState(CharacterState.Attack)) return;
+        if(_characterStateController.HasState(CharacterState.Attack)) return;
 
         if(_rb.velocity == Vector2.zero)
         {
-            _characterAnimation.TrySetAnimationState(PlayerAnimationState.Idle);
+            _animationController.TrySetAnimationState(PlayerAnimationState.Idle);
             
-            _stateController.AddState(CharacterState.Idle);
-            _stateController.RemoveState(CharacterState.Move);
+            _characterStateController.AddState(CharacterState.Idle);
+            _characterStateController.RemoveState(CharacterState.Move);
         }
         else
         {
-            _stateController.AddState(CharacterState.Move);
-            _stateController.RemoveState(CharacterState.Idle);
+            _characterStateController.AddState(CharacterState.Move);
+            _characterStateController.RemoveState(CharacterState.Idle);
             
-            _characterAnimation.TrySetAnimationState(PlayerAnimationState.Move);
+            _animationController.TrySetAnimationState(PlayerAnimationState.Move);
         }
     }
 
     private void FlipCharacter()
     {
-        if(_stateController.HasState(CharacterState.Attack)) return;
+        if(_characterStateController.HasState(CharacterState.Attack)) return;
         
         Vector3 scale = transform.localScale;
         float scaleX = Mathf.Abs(scale.x);
@@ -84,12 +85,12 @@ public class CharacterMove : BaseEntityMove, IUpdateAble, ICharacterComponentAbl
 
         transform.localScale = scale;
     }
-
-    private void SetInput(ref Vector2 input)
-    {
-        input.x = Input.GetAxisRaw("Horizontal");
-        input.y = Input.GetAxisRaw("Vertical");
-    }
+    //
+    // private void SetInput(ref Vector2 input)
+    // {
+    //     input.x = Input.GetAxisRaw("Horizontal");
+    //     input.y = Input.GetAxisRaw("Vertical");
+    // }
 
     
     

@@ -6,11 +6,11 @@ public class AnimationCtrl<T> where T : Enum
     {
         private readonly int STATE_HASH = Animator.StringToHash("State");
 
-        private Dictionary<string, AnimationClip> _animationClipDict = new Dictionary<string, AnimationClip>();
+        private readonly Dictionary<string, AnimationClip> _animationClipDict = new Dictionary<string, AnimationClip>();
 
-        public Animator Animator { get; init; }
+        private Animator Animator { get; init; }
 
-        private T _animationState;
+        private T _currentAnimationState;
 
         public AnimationCtrl(Animator animator)
         {
@@ -39,23 +39,28 @@ public class AnimationCtrl<T> where T : Enum
             }
         }
 
-        public void SetAnimationState(T animationState)
+        private void SetAnimationState(T animationState)
         {
-            _animationState = animationState;
-            Animator.SetInteger(STATE_HASH, animationState.GetEnumValue<int>());
+            _currentAnimationState = animationState;
+            Animator.SetInteger(STATE_HASH, Define.EnumToInt(animationState));
         }
 
-        public void SetAnimationStateOnce(T animationState)
+        public void TrySetAnimationState(T animationState)
         {
-            if (!_animationState.Equals(animationState))
+            int currentState = Define.EnumToInt(_currentAnimationState);
+            int parameterState = Define.EnumToInt(animationState);
+            
+            if (!_currentAnimationState.Equals(animationState))
                 SetAnimationState(animationState);
         }
 
         public AnimationEvent GetAnimEvent(string funcName, float eventTime, UnityEngine.Object param = null)
         {
-            AnimationEvent e = new AnimationEvent();
-            e.functionName = funcName;
-            e.time = eventTime;
+            AnimationEvent e = new AnimationEvent {
+                functionName = funcName,
+                time = eventTime
+            };
+
             if (param != null)
             {
                 e.objectReferenceParameter = param;

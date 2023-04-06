@@ -4,25 +4,31 @@ using UnityEngine;
 
 public class CharacterComponentController : MonoBehaviour
 {
-    private readonly Dictionary<Type, ICharacterComponentAble> _playerComponentDict = new();
+    private readonly Dictionary<Type, IGetComponentAble> _playerComponentDict = new();
 
+    private IGetComponentAble[] _componentAbles;
     private void Awake()
     {
         Debug.Log("Awake");
-        ICharacterComponentAble[] playerComponentAbles = GetComponentsInChildren<ICharacterComponentAble>();
+        _componentAbles = GetComponentsInChildren<IGetComponentAble>();
 
-        foreach (ICharacterComponentAble componentAble in playerComponentAbles)
+        foreach (IGetComponentAble componentAble in _componentAbles)
         {
             AddPlayerComponent(componentAble);
         }
         
-        foreach (ICharacterComponentAble componentAble in playerComponentAbles)
+        
+    }
+
+    private void Start()
+    {
+        foreach (IGetComponentAble componentAble in _componentAbles)
         {
-            componentAble.InitializePlayerComponent(componentController: this);
+            componentAble.InitializeComponent(componentController: this);
         }
     }
 
-    private void AddPlayerComponent(ICharacterComponentAble componentAble)
+    private void AddPlayerComponent(IGetComponentAble componentAble)
     {
         if(!_playerComponentDict.TryAdd(componentAble.GetType(), componentAble))
         {
@@ -30,9 +36,9 @@ public class CharacterComponentController : MonoBehaviour
         }
     }
 
-    public T GetPlayerComponent<T>() where T : MonoBehaviour, ICharacterComponentAble
+    public T GetPlayerComponent<T>() where T : MonoBehaviour, IGetComponentAble
     {
-        if(_playerComponentDict.TryGetValue(typeof(T), out ICharacterComponentAble value))
+        if(_playerComponentDict.TryGetValue(typeof(T), out IGetComponentAble value))
             return value as T;
         else
             throw new SystemException($"{nameof(T)} is none in Dictionary");

@@ -4,7 +4,7 @@ using UnityEngine;
 using DG.Tweening;
 
 
-public class CharacterDamaged : BaseEntityDamaged, ICharacterComponentAble
+public class CharacterDamaged : BaseEntityDamaged, IGetComponentAble
 {
 
 

@@ -57,6 +57,40 @@ public static class Define
     {
         return (T)Enum.Parse(typeof(T), enumString);
     }
+    
+    struct Shell<T> where T : Enum
+    {
+        public int Int;
+        public T Enum;
+    }
+
+    public static int EnumToInt<T>(T e) where T : Enum
+    {
+        Shell<T> s;
+        s.Enum = e;
+        unsafe
+        {
+            int* pi = &s.Int;
+            pi += 1;
+
+            return *pi;
+        }
+    }
+
+    public static T IntToEnum<T>(int value) where T : Enum
+    {
+        var s = new Shell<T>();
+        //s.Enum = e;
+        unsafe
+        {
+            int* pi = &s.Int;
+            pi += 1;
+            *pi = value;
+
+        }
+        return s.Enum;
+    }
+    
 
     public static T GetEnumValue<T>(this Enum e) where T : struct, IComparable, IFormattable, IConvertible, IComparable<T>, IEquatable<T>
     {
@@ -71,19 +105,19 @@ public static class Define
 
         float currentSizeRandom = 0f;
 
-        for (int i = 0; i < bounds.Length; ++i)
+        foreach (Bound bound in bounds)
         {
-            sizeAmount += bounds[i].Size.magnitude;
+            sizeAmount += bound.Size.magnitude;
         }
-        for (int i = 0; i < bounds.Length; ++i)
+        foreach (Bound bound in bounds)
         {
-            if (random <= bounds[i].Size.magnitude / sizeAmount + currentSizeRandom)
+            if (random <= bound.Size.magnitude / sizeAmount + currentSizeRandom)
             {
-                return bounds[i];
+                return bound;
             }
             else
             {
-                currentSizeRandom += bounds[i].Size.magnitude / sizeAmount;
+                currentSizeRandom += bound.Size.magnitude / sizeAmount;
             }
         }
 
@@ -91,30 +125,9 @@ public static class Define
         return bounds[rand];
     }
 
-    [StructLayout(LayoutKind.Explicit)]
-    struct EnumUnion32<T> where T : Enum
-    {
-        [FieldOffset(0)]
-        public T Enum;
-
-        [FieldOffset(0)]
-        public int Int;
-    }
-
-    public static int EnumToInt<T>(T e) where T : Enum
-    {
-        var unionDefault = default(EnumUnion32<T>);
-        unionDefault.Enum = e;
-        return unionDefault.Int;
-    }
-
-    public static T IntToEnum<T>(int value) where T : Enum
-    {
-        var unionDefault = default(EnumUnion32<T>);
-        unionDefault.Int = value;
-        return unionDefault.Enum;
-    }
 }
+
+
 
 namespace System.Runtime.CompilerServices
 {

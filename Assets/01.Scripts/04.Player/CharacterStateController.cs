@@ -10,7 +10,7 @@ public enum CharacterState
     Attack = 1 << 1,
     Move = 1 << 2,
 }
-public class CharacterStateController : MonoBehaviour, ICharacterComponentAble
+public class CharacterStateController : MonoBehaviour, IGetComponentAble
 {
     private CharacterState _currentState;
 

@@ -12,7 +12,7 @@ public enum AttackType
 public class KnightAttackStateMachine : StateMachineBehaviour
 {
     private readonly int ATTACK_HASH = Animator.StringToHash("Attack");
-    private CharacterAnimation _characterAnimation;
+    private AnimationCtrl<PlayerAnimationState> _animationController;
     
     private void OnEnable()
     {
@@ -23,7 +23,7 @@ public class KnightAttackStateMachine : StateMachineBehaviour
     private IEnumerator GetPlayerAnimation()
     {
         yield return Yields.WaitForEndOfFrame;
-        _characterAnimation = GameManager.Instance.Character.GetPlayerComponent<CharacterAnimation>();
+        _animationController = CharacterManager.Instance.Knight.GetPlayerComponent<CharacterAnimationController>().AnimationCtrl;
     }
 
     // OnStateEnter is called before OnStateEnter is called on any state inside this state machine

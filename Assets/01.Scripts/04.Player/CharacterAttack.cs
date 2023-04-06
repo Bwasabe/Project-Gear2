@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class CharacterAttack : BaseEntityAttack, IUpdateAble, ICharacterComponentAble
+public class CharacterAttack : BaseEntityAttack, IUpdateAble, IGetComponentAble
 {
     [SerializeField]
     private float _findCooldown = 0.1f;
@@ -11,19 +11,22 @@ public class CharacterAttack : BaseEntityAttack, IUpdateAble, ICharacterComponen
     private float _attackRange = 1f;
  
     
-    private CharacterAnimation _characterAnimation;
-    private CharacterAnimationEventHandler _characterAnimationEventHandler;
-    private CharacterStateController _stateController;
+    private AnimationCtrl<PlayerAnimationState> _animationController;
+    private AnimationEventHandler _animationEventHandler;
+    private CharacterStateController _characterStateController;
 
     private const string ATTACK_END_CALLBACK = "AttackEndCallback";
-
+    
     public Transform Target{ get; private set; }
     
-    public void InitializePlayerComponent(CharacterComponentController componentController)
+    public void InitializeComponent(CharacterComponentController componentController)
     {
-        _characterAnimation = componentController.GetPlayerComponent<CharacterAnimation>();
-        _characterAnimationEventHandler = componentController.GetPlayerComponent<CharacterAnimationEventHandler>();
-        _stateController = componentController.GetPlayerComponent<CharacterStateController>();
+        CharacterAnimationController characterAnimationController = componentController.GetPlayerComponent<CharacterAnimationController>();
+        Debug.Log(characterAnimationController);
+        _animationController = characterAnimationController.AnimationCtrl;
+        Debug.Log(_animationController);
+        _animationEventHandler = componentController.GetPlayerComponent<AnimationEventHandler>();
+        _characterStateController = componentController.GetPlayerComponent<CharacterStateController>();
     }
 
     private void OnEnable()
@@ -38,7 +41,7 @@ public class CharacterAttack : BaseEntityAttack, IUpdateAble, ICharacterComponen
 
     private void Start()
     {
-        _characterAnimationEventHandler.AddEvent("AttackEndCallback", AttackEndCallback);
+        _animationEventHandler.AddEvent("AttackEndCallback", AttackEndCallback);
         
         StartCoroutine(FindTarget());
     }
@@ -57,15 +60,16 @@ public class CharacterAttack : BaseEntityAttack, IUpdateAble, ICharacterComponen
 
     public void OnUpdate()
     {
-        // // TODO: 적을 찾아 공격
         CheckDistance();
     }
 
     private void CheckDistance()
     {
         if(Target == null) return;
+
+        Vector3 rootPos = _characterStateController.transform.position;
         
-        if(Vector3.Distance(Target.position, transform.position) <= _attackRange)
+        if(Vector3.Distance(Target.position, rootPos) <= _attackRange)
         {
             Attack();
         }
@@ -73,15 +77,15 @@ public class CharacterAttack : BaseEntityAttack, IUpdateAble, ICharacterComponen
 
     protected override void Attack()
     {
-        _stateController.AddState(CharacterState.Attack);
-        _characterAnimation.TrySetAnimationState(PlayerAnimationState.Attack);
+        _characterStateController.AddState(CharacterState.Attack);
+        _animationController.TrySetAnimationState(PlayerAnimationState.Attack);
     }
 
     private void AttackEndCallback()
     {
         Debug.Log("EndCallback");
-        _stateController.RemoveState(CharacterState.Attack);
-        _characterAnimation.TrySetAnimationState(PlayerAnimationState.Idle);
+        _characterStateController.RemoveState(CharacterState.Attack);
+        _animationController.TrySetAnimationState(PlayerAnimationState.Idle);
     }
 
     private void OnTriggerEnter2D(Collider2D other)

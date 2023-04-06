@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class CharacterAnimationEventHandler : MonoBehaviour, ICharacterComponentAble
+public class AnimationEventHandler : MonoBehaviour, IGetComponentAble
 {
 
     private readonly Dictionary<string, Action> _playerAnimationEventDict = new();

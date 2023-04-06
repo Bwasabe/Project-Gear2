@@ -30,6 +30,7 @@ public class EnemyManager : MonoSingleton<EnemyManager>
             if(!enemy.gameObject.activeSelf) continue;
             
             float sqrMagnitude = (enemy.position - character.position).sqrMagnitude;
+            
             if(sqrMagnitude < minSqrMagnitude)
             {
                 minSqrMagnitude = sqrMagnitude;
