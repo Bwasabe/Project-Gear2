@@ -1,16 +1,19 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class PlayerAttack : BaseEntityAttack, IUpdateAble, IPlayerComponentAble
 {
-    // TODO: PlayerAnimationComponent 를 가져올 방법 생각해보기
     private PlayerAnimation _playerAnimation;
+    private PlayerAnimationEventHandler _playerAnimationEventHandler;
+    
+    private const string ATTACK_END_CALLBACK = "AttackEndCallback";
     
     public void OnAwake(PlayerComponentController componentController)
     {
         _playerAnimation = componentController.GetPlayerComponent<PlayerAnimation>();
-        Debug.Log(_playerAnimation);
+        _playerAnimationEventHandler = componentController.GetPlayerComponent<PlayerAnimationEventHandler>();
     }
     
     private void OnEnable() {
@@ -18,8 +21,12 @@ public class PlayerAttack : BaseEntityAttack, IUpdateAble, IPlayerComponentAble
     }
 
     private void OnDisable() {
-        Debug.Log("Disable");
         UpdateManager.Instance.UnRegisterObject(this);
+    }
+
+    private void Start()
+    {
+        _playerAnimationEventHandler.AddEvent("AttackEndCallback", AttackEndCallback);
     }
 
     public void OnUpdate()
@@ -33,10 +40,15 @@ public class PlayerAttack : BaseEntityAttack, IUpdateAble, IPlayerComponentAble
 
     protected override void Attack()
     {
-        _playerAnimation.AnimationCtrl.SetAnimationStateOnce(PlayerAnimationState.Attack);
+        _playerAnimation.TrySetAnimationState(PlayerAnimationState.Attack);
     }
 
-    private void OnCollisionEnter2D(Collision2D other)
+    private void AttackEndCallback()
+    {
+        _playerAnimation.TrySetAnimationState(PlayerAnimationState.Idle);
+    }
+
+    private void OnTriggerEnter2D(Collider2D other)
     {
         GameObject collisionGameObject = other.gameObject;
         
@@ -47,7 +59,6 @@ public class PlayerAttack : BaseEntityAttack, IUpdateAble, IPlayerComponentAble
             damaged.Damaged(_atk);
         }
 
-
     }
-    
+
 }

@@ -8,6 +8,7 @@ public class PlayerComponentController : MonoBehaviour
 
     private void Awake()
     {
+        Debug.Log("Awake");
         IPlayerComponentAble[] playerComponentAbles = GetComponentsInChildren<IPlayerComponentAble>();
 
         foreach (IPlayerComponentAble componentAble in playerComponentAbles)

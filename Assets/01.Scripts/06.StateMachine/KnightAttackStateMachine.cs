@@ -1,28 +1,50 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Random = UnityEngine.Random;
 
+public enum AttackType
+{
+    Attack1,
+    Attack2
+}
 public class KnightAttackStateMachine : StateMachineBehaviour
 {
-    private readonly int STATE_HASH = Animator.StringToHash("State");
+    private readonly int ATTACK_HASH = Animator.StringToHash("Attack");
+    private PlayerAnimation _playerAnimation;
     
+    private void OnEnable()
+    {
+        Debug.Log("OnEnable");
+        GameManager.Instance.StartCoroutine(GetPlayerAnimation());
+    }
+
+    private IEnumerator GetPlayerAnimation()
+    {
+        yield return Yields.WaitForEndOfFrame;
+        _playerAnimation = GameManager.Instance.Player.GetPlayerComponent<PlayerAnimation>();
+    }
+
     // OnStateEnter is called before OnStateEnter is called on any state inside this state machine
-    // override public void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
-    // {
-    //     
-    // }
+    override public void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
+    {
+        int random = (int)Define.GetRandomEnum<AttackType>();
+        animator.SetInteger(ATTACK_HASH, random);
+        
+    }
 
     // OnStateUpdate is called before OnStateUpdate is called on any state inside this state machine
-    //override public void OnStateUpdate(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
-    //{
-    //    
-    //}
+    // override public void OnStateUpdate(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
+    // {
+    //     Debug.Log("StateUpdate");
+    // }
 
     // OnStateExit is called before OnStateExit is called on any state inside this state machine
-    //override public void OnStateExit(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
-    //{
-    //    
-    //}
+    override public void OnStateExit(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
+    {
+        _playerAnimation.TrySetAnimationState(PlayerAnimationState.Idle);
+    }
 
     // OnStateMove is called before OnStateMove is called on any state inside this state machine
     //override public void OnStateMove(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
