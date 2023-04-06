@@ -3,16 +3,11 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerAnimationEventHandler : MonoBehaviour, IPlayerComponentAble
+public class CharacterAnimationEventHandler : MonoBehaviour, ICharacterComponentAble
 {
 
     private readonly Dictionary<string, Action> _playerAnimationEventDict = new();
-    
-    public void OnAwake(PlayerComponentController componentController)
-    {
-        
-    }
-    
+
     protected void OnAnimationExecute(string actionName)
     {
         if(_playerAnimationEventDict.TryGetValue(actionName, out Action action))

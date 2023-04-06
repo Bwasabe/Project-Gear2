@@ -6,10 +6,11 @@ public enum PlayerAnimationState
 {
     Idle = 0,
     Attack = 1,
+    Move = 2,
 }
 
 [RequireComponent(typeof(Animator))]
-public class PlayerAnimation : MonoBehaviour, IPlayerComponentAble
+public class CharacterAnimation : MonoBehaviour, ICharacterComponentAble
 {
     private readonly int STATE_HASH = Animator.StringToHash("State");
     
@@ -21,11 +22,7 @@ public class PlayerAnimation : MonoBehaviour, IPlayerComponentAble
         _animator = GetComponent<Animator>();
 
     }
-    public void OnAwake(PlayerComponentController componentController)
-    {
-        
-    }
-    
+
     public void SetAnimationState(PlayerAnimationState animationState)
     {
         _currentAnimationState = animationState;

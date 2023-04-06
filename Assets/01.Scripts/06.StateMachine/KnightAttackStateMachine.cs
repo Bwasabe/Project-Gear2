@@ -12,7 +12,7 @@ public enum AttackType
 public class KnightAttackStateMachine : StateMachineBehaviour
 {
     private readonly int ATTACK_HASH = Animator.StringToHash("Attack");
-    private PlayerAnimation _playerAnimation;
+    private CharacterAnimation _characterAnimation;
     
     private void OnEnable()
     {
@@ -23,14 +23,15 @@ public class KnightAttackStateMachine : StateMachineBehaviour
     private IEnumerator GetPlayerAnimation()
     {
         yield return Yields.WaitForEndOfFrame;
-        _playerAnimation = GameManager.Instance.Player.GetPlayerComponent<PlayerAnimation>();
+        _characterAnimation = GameManager.Instance.Character.GetPlayerComponent<CharacterAnimation>();
     }
 
     // OnStateEnter is called before OnStateEnter is called on any state inside this state machine
     override public void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
         int random = (int)Define.GetRandomEnum<AttackType>();
-        animator.SetInteger(ATTACK_HASH, random);
+        
+        animator.SetFloat(ATTACK_HASH, random);
         
     }
 
@@ -41,10 +42,10 @@ public class KnightAttackStateMachine : StateMachineBehaviour
     // }
 
     // OnStateExit is called before OnStateExit is called on any state inside this state machine
-    override public void OnStateExit(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
-    {
-        _playerAnimation.TrySetAnimationState(PlayerAnimationState.Idle);
-    }
+    // override public void OnStateExit(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
+    // {
+    //     _characterAnimation.TrySetAnimationState(PlayerAnimationState.Idle);
+    // }
 
     // OnStateMove is called before OnStateMove is called on any state inside this state machine
     //override public void OnStateMove(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
