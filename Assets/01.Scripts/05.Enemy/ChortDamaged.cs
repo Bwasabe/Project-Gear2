@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class EnemyDamaged : BaseEntityDamaged
+public class ChortDamaged : BaseEntityDamaged
 {
     [SerializeField]
     private float _flickerTime = 0.1f;

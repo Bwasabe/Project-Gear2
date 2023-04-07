@@ -9,7 +9,7 @@ public class CharacterAttack : BaseEntityAttack, IUpdateAble, IGetComponentAble
     private float _findCooldown = 0.1f;
     [SerializeField]
     private float _attackRange = 1f;
- 
+    
     
     private AnimationCtrl<PlayerAnimationState> _animationController;
     private AnimationEventHandler _animationEventHandler;
@@ -22,9 +22,8 @@ public class CharacterAttack : BaseEntityAttack, IUpdateAble, IGetComponentAble
     public void InitializeComponent(CharacterComponentController componentController)
     {
         CharacterAnimationController characterAnimationController = componentController.GetPlayerComponent<CharacterAnimationController>();
-        Debug.Log(characterAnimationController);
         _animationController = characterAnimationController.AnimationCtrl;
-        Debug.Log(_animationController);
+        
         _animationEventHandler = componentController.GetPlayerComponent<AnimationEventHandler>();
         _characterStateController = componentController.GetPlayerComponent<CharacterStateController>();
     }
@@ -41,7 +40,7 @@ public class CharacterAttack : BaseEntityAttack, IUpdateAble, IGetComponentAble
 
     private void Start()
     {
-        _animationEventHandler.AddEvent("AttackEndCallback", AttackEndCallback);
+        _animationEventHandler.AddEvent(ATTACK_END_CALLBACK, AttackEndCallback);
         
         StartCoroutine(FindTarget());
     }
@@ -83,7 +82,6 @@ public class CharacterAttack : BaseEntityAttack, IUpdateAble, IGetComponentAble
 
     private void AttackEndCallback()
     {
-        Debug.Log("EndCallback");
         _characterStateController.RemoveState(CharacterState.Attack);
         _animationController.TrySetAnimationState(PlayerAnimationState.Idle);
     }
@@ -93,9 +91,6 @@ public class CharacterAttack : BaseEntityAttack, IUpdateAble, IGetComponentAble
         GameObject collisionGameObject = other.gameObject;
 
         if((collisionGameObject.layer & 1 << _hitLayer) <= 0) return;
-        Debug.Log((collisionGameObject.layer & 1 << _hitLayer));
-        Debug.Log(collisionGameObject.layer);
-        Debug.Log(_hitLayer);
 
         if(collisionGameObject.TryGetComponent<BaseEntityDamaged>(out BaseEntityDamaged damaged))
         {

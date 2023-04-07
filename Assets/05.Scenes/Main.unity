@@ -1375,7 +1375,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e08ae01d4620baa418c4bddd39390c2d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _atk: 0
+  _atk: 10
   _hitLayer:
     serializedVersion: 2
     m_Bits: 128
@@ -1735,6 +1735,7 @@ GameObject:
   - component: {fileID: 3443933930893187433}
   - component: {fileID: 3443933930893187438}
   - component: {fileID: 3443933930893187445}
+  - component: {fileID: 3443933930893187446}
   m_Layer: 7
   m_Name: Enemy
   m_TagString: Untagged
@@ -1754,5 +1755,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9fe520d8827215c479f7da3f49c2b198, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _maxHp: 0
+  _maxHp: 100
   _flickerTime: 0.1
+--- !u!114 &3443933930893187446
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3443933930893187444}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 354b2eebee0843a9a8af19918b3ffb36, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
