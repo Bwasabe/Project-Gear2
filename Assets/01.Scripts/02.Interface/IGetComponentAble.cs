@@ -2,5 +2,5 @@ using System.Collections;
 
 public interface IGetComponentAble
 {
-    public void InitializeComponent(CharacterComponentController componentController){}
+    public void InitializeComponent(EntityComponentController componentController){}
 }

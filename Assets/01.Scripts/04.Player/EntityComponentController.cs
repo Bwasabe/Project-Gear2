@@ -2,14 +2,13 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class CharacterComponentController : MonoBehaviour
+public class EntityComponentController : MonoBehaviour
 {
     private readonly Dictionary<Type, IGetComponentAble> _playerComponentDict = new();
 
     private IGetComponentAble[] _componentAbles;
     private void Awake()
     {
-        Debug.Log("Awake");
         _componentAbles = GetComponentsInChildren<IGetComponentAble>();
 
         foreach (IGetComponentAble componentAble in _componentAbles)
@@ -41,6 +40,6 @@ public class CharacterComponentController : MonoBehaviour
         if(_playerComponentDict.TryGetValue(typeof(T), out IGetComponentAble value))
             return value as T;
         else
-            throw new SystemException($"{nameof(T)} is none in Dictionary");
+            throw new SystemException($"{typeof(T).Name} is none in Dictionary");
     }
 }

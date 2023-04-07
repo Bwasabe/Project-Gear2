@@ -3,9 +3,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public abstract class BehaviourTree : MonoBehaviour
+public abstract class BehaviourTree : MonoBehaviour, IUpdateAble
 {
-    public abstract BT_Data Data{ get; set; }
+    public abstract BT_Variable Variable{ get; set; }
 
     protected BT_Node _root;
 
@@ -16,13 +16,22 @@ public abstract class BehaviourTree : MonoBehaviour
         _root = SetupTree();
     }
 
-    protected virtual void Update()
+    protected virtual void OnEnable()
+    {
+        UpdateManager.Instance.RegisterObject(this);
+    }
+
+    protected void OnDisable()
+    {
+        UpdateManager.Instance?.UnRegisterObject(this);
+    }
+
+    protected abstract BT_Node SetupTree();
+    public void OnUpdate()
     {
         if(!IsStop)
         {
             _root?.Execute();
         }
     }
-
-    protected abstract BT_Node SetupTree();
 }

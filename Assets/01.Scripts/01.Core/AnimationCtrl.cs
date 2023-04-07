@@ -6,7 +6,7 @@ public class AnimationCtrl<T> where T : Enum
     {
         private readonly int STATE_HASH = Animator.StringToHash("State");
 
-        private readonly Dictionary<string, AnimationClip> _animationClipDict = new Dictionary<string, AnimationClip>();
+        //private readonly Dictionary<string, AnimationClip> _animationClipDict = new Dictionary<string, AnimationClip>();
 
         private Animator Animator { get; init; }
 
@@ -16,28 +16,28 @@ public class AnimationCtrl<T> where T : Enum
         {
             Animator = animator;
 
-            for (int j = 0; j < Animator.runtimeAnimatorController.animationClips.Length; ++j)
-            {
-                AnimationClip clip = Animator.runtimeAnimatorController.animationClips[j];
-
-                if (!_animationClipDict.TryAdd(clip.name, clip))
-                {
-                    Debug.LogError("Animation Name is duplicate");
-                }
-            }
+            // for (int j = 0; j < Animator.runtimeAnimatorController.animationClips.Length; ++j)
+            // {
+            //     AnimationClip clip = Animator.runtimeAnimatorController.animationClips[j];
+            //
+            //     if (!_animationClipDict.TryAdd(clip.name, clip))
+            //     {
+            //         Debug.LogError("Animation Name is duplicate");
+            //     }
+            // }
         }
 
-        public float GetAnimationLength(string name)
-        {
-            if (_animationClipDict.TryGetValue(name, out AnimationClip value))
-            {
-                return value.length;
-            }
-            else
-            {
-                throw new System.Exception("Name is Wrong or None in Dictionary");
-            }
-        }
+        // public float GetAnimationLength(string name)
+        // {
+        //     if (_animationClipDict.TryGetValue(name, out AnimationClip value))
+        //     {
+        //         return value.length;
+        //     }
+        //     else
+        //     {
+        //         throw new System.Exception("Name is Wrong or None in Dictionary");
+        //     }
+        // }
 
         private void SetAnimationState(T animationState)
         {
@@ -50,22 +50,22 @@ public class AnimationCtrl<T> where T : Enum
             int currentState = Define.EnumToInt(_currentAnimationState);
             int parameterState = Define.EnumToInt(animationState);
             
-            if (!_currentAnimationState.Equals(animationState))
+            if (currentState != parameterState)
                 SetAnimationState(animationState);
         }
-
-        public AnimationEvent GetAnimEvent(string funcName, float eventTime, UnityEngine.Object param = null)
-        {
-            AnimationEvent e = new AnimationEvent {
-                functionName = funcName,
-                time = eventTime
-            };
-
-            if (param != null)
-            {
-                e.objectReferenceParameter = param;
-            }
-
-            return e;
-        }
+        //
+        // public AnimationEvent GetAnimEvent(string funcName, float eventTime, UnityEngine.Object param = null)
+        // {
+        //     AnimationEvent e = new AnimationEvent {
+        //         functionName = funcName,
+        //         time = eventTime
+        //     };
+        //
+        //     if (param != null)
+        //     {
+        //         e.objectReferenceParameter = param;
+        //     }
+        //
+        //     return e;
+        // }
     }

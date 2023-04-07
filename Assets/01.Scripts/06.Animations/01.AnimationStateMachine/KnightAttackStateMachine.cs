@@ -12,11 +12,10 @@ public enum AttackType
 public class KnightAttackStateMachine : StateMachineBehaviour
 {
     private readonly int ATTACK_HASH = Animator.StringToHash("Attack");
-    private AnimationCtrl<PlayerAnimationState> _animationController;
+    private AnimationCtrl<CharacterAnimationState> _animationController;
     
     private void OnEnable()
     {
-        Debug.Log("OnEnable");
         GameManager.Instance.StartCoroutine(GetPlayerAnimation());
     }
 

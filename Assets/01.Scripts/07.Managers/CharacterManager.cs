@@ -6,7 +6,7 @@ using UnityEngine;
 public class CharacterManager : MonoSingleton<CharacterManager>
 {
     [field: SerializeField]
-    public CharacterComponentController Knight{ get; private set; }
+    public EntityComponentController Knight{ get; private set; }
 
     private List<Transform> _characters = new();
 

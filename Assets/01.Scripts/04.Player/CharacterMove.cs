@@ -9,14 +9,14 @@ public class CharacterMove : BaseEntityMove, IUpdateAble, IGetComponentAble
     private Rigidbody2D _rb;
 
     private CharacterAttack _characterAttack;
-    private AnimationCtrl<PlayerAnimationState> _animationController;
+    private AnimationCtrl<CharacterAnimationState> _animationController;
     private CharacterStateController _characterStateController;
     
     private void Awake() {
         _rb = GetComponent<Rigidbody2D>();
     }
 
-    public void InitializeComponent(CharacterComponentController componentController)
+    public void InitializeComponent(EntityComponentController componentController)
     {
         _animationController = componentController.GetPlayerComponent<CharacterAnimationController>().AnimationCtrl;
         
@@ -29,7 +29,7 @@ public class CharacterMove : BaseEntityMove, IUpdateAble, IGetComponentAble
     }
 
     private void OnDisable() {
-        UpdateManager.Instance.UnRegisterObject(this);
+        UpdateManager.Instance?.UnRegisterObject(this);
     }
     
     public void OnUpdate()
@@ -58,7 +58,7 @@ public class CharacterMove : BaseEntityMove, IUpdateAble, IGetComponentAble
 
         if(_rb.velocity == Vector2.zero)
         {
-            _animationController.TrySetAnimationState(PlayerAnimationState.Idle);
+            _animationController.TrySetAnimationState(CharacterAnimationState.Idle);
             
             _characterStateController.AddState(CharacterState.Idle);
             _characterStateController.RemoveState(CharacterState.Move);
@@ -68,7 +68,7 @@ public class CharacterMove : BaseEntityMove, IUpdateAble, IGetComponentAble
             _characterStateController.AddState(CharacterState.Move);
             _characterStateController.RemoveState(CharacterState.Idle);
             
-            _animationController.TrySetAnimationState(PlayerAnimationState.Move);
+            _animationController.TrySetAnimationState(CharacterAnimationState.Move);
         }
     }
 

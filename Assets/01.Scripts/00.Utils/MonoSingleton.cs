@@ -2,7 +2,7 @@ using UnityEngine;
 
 public class MonoSingleton<T> : MonoBehaviour where T : MonoSingleton<T>
 {
-    private static bool _shuttingDown = false;
+    protected static bool _shuttingDown = false;
     private static object _locker = new object();
     private static T _instance = null;
 

@@ -11,7 +11,7 @@ public class CharacterAttack : BaseEntityAttack, IUpdateAble, IGetComponentAble
     private float _attackRange = 1f;
     
     
-    private AnimationCtrl<PlayerAnimationState> _animationController;
+    private AnimationCtrl<CharacterAnimationState> _animationController;
     private AnimationEventHandler _animationEventHandler;
     private CharacterStateController _characterStateController;
 
@@ -19,7 +19,7 @@ public class CharacterAttack : BaseEntityAttack, IUpdateAble, IGetComponentAble
     
     public Transform Target{ get; private set; }
     
-    public void InitializeComponent(CharacterComponentController componentController)
+    public void InitializeComponent(EntityComponentController componentController)
     {
         CharacterAnimationController characterAnimationController = componentController.GetPlayerComponent<CharacterAnimationController>();
         _animationController = characterAnimationController.AnimationCtrl;
@@ -35,7 +35,7 @@ public class CharacterAttack : BaseEntityAttack, IUpdateAble, IGetComponentAble
 
     private void OnDisable()
     {
-        UpdateManager.Instance.UnRegisterObject(this);
+        UpdateManager.Instance?.UnRegisterObject(this);
     }
 
     private void Start()
@@ -77,13 +77,13 @@ public class CharacterAttack : BaseEntityAttack, IUpdateAble, IGetComponentAble
     protected override void Attack()
     {
         _characterStateController.AddState(CharacterState.Attack);
-        _animationController.TrySetAnimationState(PlayerAnimationState.Attack);
+        _animationController.TrySetAnimationState(CharacterAnimationState.Attack);
     }
 
     private void AttackEndCallback()
     {
         _characterStateController.RemoveState(CharacterState.Attack);
-        _animationController.TrySetAnimationState(PlayerAnimationState.Idle);
+        _animationController.TrySetAnimationState(CharacterAnimationState.Idle);
     }
 
     private void OnTriggerEnter2D(Collider2D other)
