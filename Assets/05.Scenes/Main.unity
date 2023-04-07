@@ -386,7 +386,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 75fd81425760a044e8faf689994be1e7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _maxHp: 0
+  _maxHp: 100
 --- !u!4 &425651423
 Transform:
   m_ObjectHideFlags: 0
@@ -1192,6 +1192,7 @@ GameObject:
   - component: {fileID: 1180889662}
   - component: {fileID: 1180889663}
   - component: {fileID: 1180889664}
+  - component: {fileID: 1180889665}
   m_Layer: 7
   m_Name: Animator
   m_TagString: Untagged
@@ -1246,6 +1247,18 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 2bf6701afe938514e975da35236e9b95, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &1180889665
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1180889661}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b0e6b0d8b50508040950b8e2d92d0f06, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1 &1421138516
@@ -1756,14 +1769,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ef4064c1f02e5be4b88005cec94c6917, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _chortVariable:
+  _variable:
+    <FindCooldown>k__BackingField: 0.1
+    <Damage>k__BackingField: 100
+    <ChaseSpeed>k__BackingField: 1
     <TargetFindRange>k__BackingField: 10
     <AttackRange>k__BackingField: 1
-    <IdleDurationMax>k__BackingField: 2
-    <IdleDurationMin>k__BackingField: 1.8
+    <IdleDurationMax>k__BackingField: 1
+    <IdleDurationMin>k__BackingField: 0.8
     <MoveDurationMax>k__BackingField: 1.5
-    <MoveDurationMin>k__BackingField: 0.8
-    <MoveSpeed>k__BackingField: 0.7
+    <MoveDurationMin>k__BackingField: 1
+    <MoveSpeed>k__BackingField: 1
 --- !u!114 &3443933930893187447
 MonoBehaviour:
   m_ObjectHideFlags: 0

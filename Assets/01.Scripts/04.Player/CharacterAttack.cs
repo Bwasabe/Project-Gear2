@@ -21,11 +21,11 @@ public class CharacterAttack : BaseEntityAttack, IUpdateAble, IGetComponentAble
     
     public void InitializeComponent(EntityComponentController componentController)
     {
-        CharacterAnimationController characterAnimationController = componentController.GetPlayerComponent<CharacterAnimationController>();
+        CharacterAnimationController characterAnimationController = componentController.GetEntityComponent<CharacterAnimationController>();
         _animationController = characterAnimationController.AnimationCtrl;
         
-        _animationEventHandler = componentController.GetPlayerComponent<AnimationEventHandler>();
-        _characterStateController = componentController.GetPlayerComponent<CharacterStateController>();
+        _animationEventHandler = componentController.GetEntityComponent<AnimationEventHandler>();
+        _characterStateController = componentController.GetEntityComponent<CharacterStateController>();
     }
 
     private void OnEnable()
@@ -64,7 +64,7 @@ public class CharacterAttack : BaseEntityAttack, IUpdateAble, IGetComponentAble
 
     private void CheckDistance()
     {
-        if(Target == null) return;
+        if(Target is null) return;
 
         Vector3 rootPos = _characterStateController.transform.position;
         

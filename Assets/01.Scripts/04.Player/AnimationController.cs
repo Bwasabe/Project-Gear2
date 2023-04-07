@@ -8,7 +8,7 @@ public class AnimationController<T> : MonoBehaviour, IGetComponentAble where T :
 {
 
     public AnimationCtrl<T> AnimationCtrl{ get; private set; }
-    protected void Awake() {
+    protected virtual void Awake() {
         Animator animator = GetComponent<Animator>();
         AnimationCtrl = new(animator);
     }

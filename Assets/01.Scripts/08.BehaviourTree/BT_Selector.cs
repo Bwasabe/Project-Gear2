@@ -9,16 +9,16 @@ public class BT_Selector : BT_Node
     {
         foreach (BT_Node child in _children)
         {
-            Result result = child.Execute();
+            NodeResult nodeResult = child.Execute();
 
-            switch (result)
+            switch (nodeResult)
             {
-                case Result.SUCCESS:
-                    _nodeResult = Result.SUCCESS;
+                case NodeResult.SUCCESS:
+                    _nodeResult = NodeResult.SUCCESS;
                     UpdateState = UpdateState.Exit;
                     return;
-                case Result.FAILURE:
-                    _nodeResult = Result.FAILURE;
+                case NodeResult.FAILURE:
+                    _nodeResult = NodeResult.FAILURE;
 
                     continue;
             }

@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -15,17 +16,18 @@ public class EntityComponentController : MonoBehaviour
         {
             AddPlayerComponent(componentAble);
         }
-        
-        
-    }
-
-    private void Start()
-    {
         foreach (IGetComponentAble componentAble in _componentAbles)
         {
             componentAble.InitializeComponent(componentController: this);
         }
     }
+
+    // private IEnumerator Start()
+    // {
+    //     yield return Yields.WaitForEndOfFrame;
+    //     
+    //     
+    // }
 
     private void AddPlayerComponent(IGetComponentAble componentAble)
     {
@@ -35,7 +37,7 @@ public class EntityComponentController : MonoBehaviour
         }
     }
 
-    public T GetPlayerComponent<T>() where T : MonoBehaviour, IGetComponentAble
+    public T GetEntityComponent<T>() where T : MonoBehaviour, IGetComponentAble
     {
         if(_playerComponentDict.TryGetValue(typeof(T), out IGetComponentAble value))
             return value as T;

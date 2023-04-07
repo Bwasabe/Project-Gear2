@@ -3,13 +3,15 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public abstract class BehaviourTree : MonoBehaviour, IUpdateAble
+[RequireComponent(typeof(Rigidbody2D))]
+public abstract class BehaviourTree : MonoBehaviour, IUpdateAble, IGetComponentAble
 {
     public abstract BT_Variable Variable{ get; set; }
 
     protected BT_Node _root;
 
     public bool IsStop{ get; set; } = false;
+    
 
     protected virtual void Start()
     {
@@ -26,6 +28,27 @@ public abstract class BehaviourTree : MonoBehaviour, IUpdateAble
         UpdateManager.Instance?.UnRegisterObject(this);
     }
 
+    public void FlipLeft()
+    {
+        Vector3 scale = transform.localScale;
+        float scaleX = Mathf.Abs(scale.x);
+        
+        scale.x = scaleX * -1f;
+        
+        transform.localScale = scale;
+    }
+
+    public void FlipRight()
+    {
+        Vector3 scale = transform.localScale;
+        float scaleX = Mathf.Abs(scale.x);
+        
+        scale.x = scaleX;
+        
+        transform.localScale = scale;
+    }
+    
+
     protected abstract BT_Node SetupTree();
     public void OnUpdate()
     {
@@ -34,4 +57,5 @@ public abstract class BehaviourTree : MonoBehaviour, IUpdateAble
             _root?.Execute();
         }
     }
+
 }

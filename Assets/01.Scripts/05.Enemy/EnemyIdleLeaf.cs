@@ -1,16 +1,16 @@
 ﻿using System.Collections.Generic;
 using UnityEngine;
 
-public class ChortIdleLeaf : BT_Node
+public class EnemyIdleLeaf : BT_Node
 {
-    private readonly ChortVariable _variable;
+    private readonly EnemyVariable _variable;
 
     private float _duration;
     private float _timer;
     
-    public ChortIdleLeaf(BehaviourTree tree, List<BT_Node> children = null) : base(tree, children)
+    public EnemyIdleLeaf(BehaviourTree tree, List<BT_Node> children = null) : base(tree, children)
     {
-        _variable = tree.Variable as ChortVariable;
+        _variable = tree.Variable as EnemyVariable;
     }
 
     protected override void OnEnter()
@@ -37,7 +37,7 @@ public class ChortIdleLeaf : BT_Node
     }
 }
 
-public partial class ChortVariable
+public partial class EnemyVariable
 {
     [field: SerializeField]
     public float IdleDurationMax{ get; private set; } = 1f;

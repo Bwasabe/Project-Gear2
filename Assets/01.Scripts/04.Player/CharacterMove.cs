@@ -11,17 +11,23 @@ public class CharacterMove : BaseEntityMove, IUpdateAble, IGetComponentAble
     private CharacterAttack _characterAttack;
     private AnimationCtrl<CharacterAnimationState> _animationController;
     private CharacterStateController _characterStateController;
-    
+
+    private CharacterAnimationController _characterAnimationController;
     private void Awake() {
         _rb = GetComponent<Rigidbody2D>();
     }
 
     public void InitializeComponent(EntityComponentController componentController)
     {
-        _animationController = componentController.GetPlayerComponent<CharacterAnimationController>().AnimationCtrl;
+        _characterAnimationController = componentController.GetEntityComponent<CharacterAnimationController>();
         
-        _characterStateController = componentController.GetPlayerComponent<CharacterStateController>();
-        _characterAttack = componentController.GetPlayerComponent<CharacterAttack>();
+        _characterStateController = componentController.GetEntityComponent<CharacterStateController>();
+        _characterAttack = componentController.GetEntityComponent<CharacterAttack>();
+    }
+
+    private void Start()
+    {
+        _animationController = _characterAnimationController.AnimationCtrl;
     }
 
     private void OnEnable() {

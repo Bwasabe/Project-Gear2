@@ -10,5 +10,8 @@ public enum EnemyAnimationState
 }
 public class EnemyAnimationController : AnimationController<EnemyAnimationState>
 {
-    
+    protected override void Awake()
+    {
+        base.Awake();
+    }
 }

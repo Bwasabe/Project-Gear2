@@ -1,12 +1,12 @@
 ﻿using System.Collections.Generic;
 using UnityEngine;
 
-public class ChortIdleOrMoveCondition : BT_Condition
+public class EnemyIdleOrMoveCondition : BT_Condition
 {
-    private ChortVariable _variable;
-    public ChortIdleOrMoveCondition(BehaviourTree tree, List<BT_Node> children) : base(tree, children)
+    private EnemyVariable _variable;
+    public EnemyIdleOrMoveCondition(BehaviourTree tree, List<BT_Node> children) : base(tree, children)
     {
-        _variable = tree.Variable as ChortVariable;
+        _variable = tree.Variable as EnemyVariable;
         
     }
 

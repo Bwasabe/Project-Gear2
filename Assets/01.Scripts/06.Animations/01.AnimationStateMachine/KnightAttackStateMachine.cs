@@ -22,7 +22,7 @@ public class KnightAttackStateMachine : StateMachineBehaviour
     private IEnumerator GetPlayerAnimation()
     {
         yield return Yields.WaitForEndOfFrame;
-        _animationController = CharacterManager.Instance.Knight.GetPlayerComponent<CharacterAnimationController>().AnimationCtrl;
+        _animationController = CharacterManager.Instance.Knight.GetEntityComponent<CharacterAnimationController>().AnimationCtrl;
     }
 
     // OnStateEnter is called before OnStateEnter is called on any state inside this state machine

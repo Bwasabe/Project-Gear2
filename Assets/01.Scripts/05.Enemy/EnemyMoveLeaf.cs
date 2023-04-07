@@ -1,17 +1,16 @@
 ﻿using System.Collections.Generic;
 using UnityEngine;
 
-public class ChortMoveLeaf : BT_Node
+public class EnemyMoveLeaf : BT_Node
 {
     private Vector2 _dir;
 
     private float _duration;
-    private float _timer;
 
-    private readonly ChortVariable _variable;
-    public ChortMoveLeaf(BehaviourTree tree, List<BT_Node> children = null) : base(tree, children)
+    private readonly EnemyVariable _variable;
+    public EnemyMoveLeaf(BehaviourTree tree, List<BT_Node> children = null) : base(tree, children)
     {
-        _variable = tree.Variable as ChortVariable;
+        _variable = tree.Variable as EnemyVariable;
     }
 
     protected override void OnEnter()
@@ -29,27 +28,38 @@ public class ChortMoveLeaf : BT_Node
 
     protected override void OnUpdate()
     {
-        _timer += Time.deltaTime;
-        if(_timer > _duration)
+        _variable.Timer += Time.deltaTime;
+        if(_variable.Timer > _duration)
         {
-            _timer = 0f;
+            _variable.Timer = 0f;
             
             UpdateState = UpdateState.Exit;
         }
         else
         {
+            Flip();
             _variable.Rigidbody2D.velocity = _dir * _variable.MoveSpeed;
         }
     }
 
+    private void Flip()
+    {
+        if(_variable.Rigidbody2D.velocity.x < 0)
+            _tree.FlipLeft();
+        else
+            _tree.FlipRight();
+    }
+
+
     protected override void OnExit()
     {
         _variable.IsIdleing = true;
+        _variable.Timer = 0f;
         UpdateState = UpdateState.None;
     }
 }
 
-public partial class ChortVariable
+public partial class EnemyVariable
 {
     [field:SerializeField]
     public float MoveDurationMax{ get; private set; } = 0.5f;
@@ -59,5 +69,7 @@ public partial class ChortVariable
 
     [field: SerializeField]
     public float MoveSpeed{ get; private set; } = 1f;
+
+    public float Timer{ get; set; } = 0f;
 
 }

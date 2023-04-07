@@ -1,7 +1,7 @@
 ﻿
 using System.Collections.Generic;
 
-public enum Result
+public enum NodeResult
 {
     SUCCESS,
     FAILURE,
@@ -17,7 +17,7 @@ public enum UpdateState
 
 public abstract class BT_Node
 {
-    protected Result _nodeResult = Result.FAILURE;
+    protected NodeResult _nodeResult = NodeResult.FAILURE;
 
     protected BehaviourTree _tree;
 
@@ -31,7 +31,7 @@ public abstract class BT_Node
         _children = children;
     }
 
-    public virtual Result Execute()
+    public virtual NodeResult Execute()
     {
         if(CheckUpdateState(UpdateState.None))
         {
