@@ -1,5 +1,6 @@
 ﻿
 using System.Collections.Generic;
+using UnityEngine;
 
 public enum NodeResult
 {
@@ -84,6 +85,24 @@ public abstract class BT_Node
                 child.UpdateState = UpdateState.Enter;
                 child.EnterNode();
             }
+        }
+    }
+
+    public void ResetNode()
+    {
+        if(_children == null) return;
+        
+        foreach (BT_Node child in _children)
+        {
+            Debug.Log(child.GetType());
+            int updateStateInt = (int)child.UpdateState;
+
+            if(updateStateInt != (int)UpdateState.None)
+            {
+                child.OnExit();
+                child.UpdateState = UpdateState.None;
+            }
+            child.ResetNode();
         }
     }
 

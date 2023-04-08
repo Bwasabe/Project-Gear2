@@ -4,14 +4,16 @@ using UnityEngine;
 
 public enum EnemyAnimationState
 {
+    None = -1,
     Idle = 0,
     Attack = 1,
     Move = 2,
 }
-public class EnemyAnimationController : AnimationController<EnemyAnimationState>
+public class EnemyAnimationController : AnimationController<EnemyAnimationState>, IPoolReturnAble
 {
-    protected override void Awake()
+
+    public void Return()
     {
-        base.Awake();
+        AnimationCtrl.SetAnimationState(EnemyAnimationState.None);
     }
 }

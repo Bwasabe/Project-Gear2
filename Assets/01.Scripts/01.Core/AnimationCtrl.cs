@@ -39,7 +39,7 @@ public class AnimationCtrl<T> where T : Enum
         //     }
         // }
 
-        private void SetAnimationState(T animationState)
+        public void SetAnimationState(T animationState)
         {
             _currentAnimationState = animationState;
             Animator.SetInteger(STATE_HASH, Define.EnumToInt(animationState));

@@ -14,18 +14,8 @@ public class PoolObject : MonoBehaviour
         if (_isInit) return;
         foreach (var component in GetComponentsInChildren<MonoBehaviour>())
         {
-            switch (component)
-            {
-            case IPoolInitAble initAble:
-                onInit += initAble.Init;
-
-                break;
-            case IPoolReturnAble returnable:
-                onReturn += returnable.Return;
-
-                break;
-            }
-
+            if(component is IPoolInitAble initAble)onInit += initAble.Init;
+            if(component is IPoolReturnAble returnAble)onReturn += returnAble.Return;
         }
  
         _isInit = true;

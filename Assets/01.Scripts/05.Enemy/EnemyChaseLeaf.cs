@@ -21,7 +21,8 @@ public class EnemyChaseLeaf : BT_Node
 
     protected override void OnEnter()
     {
-        _variable.AnimationController.TrySetAnimationState(EnemyAnimationState.Move);
+        Debug.Log("ChaseEnter");
+        _variable.AnimationController.SetAnimationState(EnemyAnimationState.Move);
 
         UpdateState = UpdateState.Update;
     }

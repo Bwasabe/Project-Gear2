@@ -57,7 +57,7 @@ public class PoolStorage : MonoBehaviour
             RegisterObject(instance, prefab);
             
             if (instance.TryGetComponent(out PoolObject _)) return instance;
-            
+
             PoolObject poolObject = instance.AddComponent<PoolObject>();
             poolObject.prefab = prefab;
             poolObject.Init();
@@ -90,7 +90,7 @@ public class PoolStorage : MonoBehaviour
         instance.SetActive(true);
         
         PoolObject poolObject = PoolObjects[instance];
-        poolObject.onInit?.Invoke();
+        poolObject.onInit.Invoke();
         //instance.hideFlags = HideFlags.None;
         
         return instance;
@@ -100,7 +100,7 @@ public class PoolStorage : MonoBehaviour
     {
         if (PoolObjects.TryGetValue(instance, out PoolObject poolObject))
         {
-            poolObject.onReturn?.Invoke();
+            poolObject.onReturn.Invoke();
         }
         else
         {

@@ -36,6 +36,7 @@ public class EnemyDistanceCondition : BT_Condition
         float distance = Vector3.Distance(_variable.Target.transform.position, _tree.transform.position);
 
         _nodeResult = SetNodeResultByDistance(distance);
+
     }
 
     private NodeResult ExecuteChild(ConditionChild child)
@@ -44,6 +45,7 @@ public class EnemyDistanceCondition : BT_Condition
         {
             _enemy.OnDistanceLeafChanged?.Invoke();
         }
+        
         return _children[(int)child].Execute();
     }
 
@@ -52,7 +54,8 @@ public class EnemyDistanceCondition : BT_Condition
         int executeChildInt = (int)_executeChild;
         int childInt = (int)child;
 
-        if(executeChildInt == childInt)
+
+        if(executeChildInt != childInt)
         {
             _executeChild = child;
             return true;

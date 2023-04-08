@@ -3,7 +3,7 @@ using System.Collections;
 using UnityEngine;
 
 [RequireComponent(typeof(Rigidbody2D))]
-public class Enemy : BehaviourTree, IGetComponentAble
+public class Enemy : BehaviourTree, IGetComponentAble, IPoolReturnAble, IPoolInitAble
 {
     [SerializeField]
     private EnemyVariable _variable;
@@ -12,6 +12,16 @@ public class Enemy : BehaviourTree, IGetComponentAble
     public Action OnDistanceLeafChanged;
 
     private EnemyAnimationController _animationController;
+    
+    public override BT_Variable Variable{
+        get {
+            return _variable;
+        }
+        set {
+            _variable = value as EnemyVariable;
+        }
+    }
+    
     private void Awake()
     {
         _variable.Rigidbody2D = GetComponent<Rigidbody2D>();
@@ -22,18 +32,26 @@ public class Enemy : BehaviourTree, IGetComponentAble
         base.Start();
         
         _variable.AnimationController = _animationController.AnimationCtrl;
-        StartCoroutine(FindTarget());
     }
+    
+    public void InitializeComponent(EntityComponentController componentController)
+    {
+        _animationController = componentController.GetEntityComponent<EnemyAnimationController>();
+        
+        AnimationEventHandler eventHandler = componentController.GetEntityComponent<AnimationEventHandler>();
+        _variable.AnimationEventHandler = eventHandler;
+    }
+    
+   
 
     private IEnumerator FindTarget()
     {
         while (!_variable.IsStopFindTarget)
         {
-            Transform targetTrm =CharacterManager.Instance.GetClosestCharacter(transform);
+            Transform targetTrm = CharacterManager.Instance.GetClosestCharacter(transform);
 
             if(targetTrm is null)
             {
-                Debug.Log("모든 캐릭터가 죽음");
                 _variable.Target = null;
                 yield return null;
 
@@ -48,22 +66,7 @@ public class Enemy : BehaviourTree, IGetComponentAble
         }
     }
 
-    public void InitializeComponent(EntityComponentController componentController)
-    {
-        _animationController = componentController.GetEntityComponent<EnemyAnimationController>();
-        
-        AnimationEventHandler eventHandler = componentController.GetEntityComponent<AnimationEventHandler>();
-        _variable.AnimationEventHandler = eventHandler;
-    }
     
-    public override BT_Variable Variable{
-        get {
-            return _variable;
-        }
-        set {
-            _variable = value as EnemyVariable;
-        }
-    }
 
 
     protected override BT_Node SetupTree()
@@ -81,6 +84,17 @@ public class Enemy : BehaviourTree, IGetComponentAble
             });
     }
 
+    public void Return()
+    {
+        Debug.Log("Return");
+        _variable.Rigidbody2D.velocity = Vector2.zero;
+        _variable.Target = null;
+        _root.ResetNode();
+    }
+    public void Init()
+    {
+        StartCoroutine(FindTarget());
+    }
 }
 
 public partial class EnemyVariable
