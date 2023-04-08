@@ -10,7 +10,7 @@ public abstract class BaseEntityDamaged : MonoBehaviour
 
     protected float _hp;
 
-    public event Action<float> OnDamageTaken;
+    public event Action<float, TextType> OnDamageTaken;
 
     public event Action OnDied;
 
@@ -19,11 +19,11 @@ public abstract class BaseEntityDamaged : MonoBehaviour
         _hp = _maxHp;
     }
     
-    public virtual void Damaged(float damage)
+    public virtual void Damaged(float damage, TextType type)
     {
         _hp -= damage;
 
-        OnDamageTaken?.Invoke(damage);
+        OnDamageTaken?.Invoke(damage, type);
 
         if(_hp <= 0f)
         {

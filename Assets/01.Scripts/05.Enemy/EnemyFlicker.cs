@@ -32,7 +32,7 @@ public class EnemyFlicker : MonoBehaviour, IGetComponentAble, IPoolInitAble
         _enemyDamaged.OnDamageTaken += Hit;
     }
 
-    private void Hit(float damage)
+    private void Hit(float _f, TextType _t)
     {
         ResetColor();
         

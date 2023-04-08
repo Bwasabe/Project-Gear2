@@ -8,7 +8,7 @@ using UnityEngine;
 [CustomEditor(typeof(DamageTextManager))]
 public class DamageTextEditor : Editor
 {
-    private const string DAMAGETEXT_FOLDER_PATH = "Assets/04.Prefabs/DamageText";
+    private const string DAMAGETEXT_FOLDER_PATH = "Assets/03.Prefabs/DamageText";
 
     private DamageTextManager _damageTextManager;
     public override void OnInspectorGUI()

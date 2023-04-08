@@ -5,7 +5,10 @@ using UnityEngine;
 public class DamageTextManager : MonoSingleton<DamageTextManager>
 {
 
+    [SerializeField] private TextType _damageTextType;
+    
     [SerializeField] private List<TextContainer> _textContainer;
+    
 
     public List<TextContainer> TextContainer => _textContainer;
 
@@ -15,6 +18,15 @@ public class DamageTextManager : MonoSingleton<DamageTextManager>
     private void Start()
     {
         InitText();
+    }
+
+    private void Update()
+    {
+        if(Input.GetKeyDown(KeyCode.Space))
+        {
+            var damageText = GetDamageText(_damageTextType);
+            damageText.ShowText();
+        }
     }
 
 
@@ -43,7 +55,9 @@ public class DamageTextManager : MonoSingleton<DamageTextManager>
     {
         if (_textDict.TryGetValue(type, out BaseDamageText textPrefab))
         {
-            BaseDamageText damageText = PoolManager.Instantiate(textPrefab.gameObject).GetComponent<BaseDamageText>();
+            Debug.Log(textPrefab);
+            GameObject damageTextObj = PoolManager.Instantiate(textPrefab.gameObject); 
+            BaseDamageText damageText = damageTextObj.GetComponent<BaseDamageText>();
             return damageText;
         }
         else

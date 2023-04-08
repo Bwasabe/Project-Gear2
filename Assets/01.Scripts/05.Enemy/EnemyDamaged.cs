@@ -6,25 +6,16 @@ public class EnemyDamaged : BaseEntityDamaged, IGetComponentAble, IPoolReturnAbl
 {
 
 
-    // private SpriteRenderer _spriteRenderer;
-    //
-    // private void Awake() {
-    //     _spriteRenderer = GetComponentInChildren<SpriteRenderer>();
-    // }
-    //
-    // protected override void Start() {
-    //     base.Start();
-    //     
-    //     OnDamageTaken += OnDamageSpriteFlicker;
-    // }
-    //
-    // private void OnDamageSpriteFlicker(float damage)
-    // {
-    //     if(_hp > 0)
-    //     {
-    //         // TODO: Shader Graph or Sprite Mask로 Fade yoyo
-    //     }
-    // }
+    protected override void Start()
+    {
+        base.Start();
+        OnDamageTaken += ShowDamageText;
+    }
+    private void ShowDamageText(float damage, TextType textType)
+    {
+            DamageTextManager.Instance.GetDamageText(textType, damage.ToString()).SetPosition(transform.position).ShowText();
+
+    }
     public void Return()
     {
         _hp = _maxHp;

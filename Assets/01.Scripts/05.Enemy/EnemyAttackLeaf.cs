@@ -4,7 +4,7 @@ using UnityEngine;
 public class EnemyAttackLeaf : BT_Node
 {
     private const string CHORT_ATTACK = "ChortAttack";
-    private EnemyVariable _variable;
+    private readonly EnemyVariable _variable;
 
     public EnemyAttackLeaf(BehaviourTree tree, List<BT_Node> children = null) : base(tree, children)
     {
@@ -26,7 +26,7 @@ public class EnemyAttackLeaf : BT_Node
 
     private void AttackTarget()
     {
-        _variable.Target?.Damaged(_variable.Damage);
+        _variable.Target?.Damaged(_variable.Damage, TextType.PlayerDamaged);
     }
 
     private void Flip()

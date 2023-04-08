@@ -95,7 +95,7 @@ public class CharacterAttack : BaseEntityAttack, IUpdateAble, IGetComponentAble
 
         if(collisionGameObject.TryGetComponent<BaseEntityDamaged>(out BaseEntityDamaged damaged))
         {
-            damaged.Damaged(_atk);
+            damaged.Damaged(_atk, TextType.EnemyDamage);
         }
 
     }

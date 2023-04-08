@@ -53,7 +53,6 @@ public abstract class BaseDamageText : MonoBehaviour
     protected virtual void ResetValue()
     {
         _text.transform.localPosition = Vector3.zero;
-        _text.color = TextData.DefaultColor;
         _text.fontSize = TextData.DefaultTextSize;
     }
     
@@ -62,9 +61,6 @@ public abstract class BaseDamageText : MonoBehaviour
 [Serializable]
 public class BaseDamageTextData
 {
-    [field: SerializeField]
-    public Color DefaultColor{ get; private set; } = Color.white;
-
     [field: SerializeField]
     public float DefaultTextSize{ get; private set; } = 30f;
     

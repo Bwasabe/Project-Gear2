@@ -1,18 +1,6 @@
 public enum TextType
 {
-    Critical,
-    Heal,
-    MonsterDamaged,
-    Ore,
+    EnemyCritical,
+    EnemyDamage,
     PlayerDamaged,
-    TickDamaged,
 }
-
-// Type
-// N : NormalText
-// P : PlusText
-// RP : RandomPositionText
-// T : TickDText
-// H : HealText
-// O : OreText
-// P
