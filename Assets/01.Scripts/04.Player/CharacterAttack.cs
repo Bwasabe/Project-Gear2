@@ -9,6 +9,8 @@ public class CharacterAttack : BaseEntityAttack, IUpdateAble, IGetComponentAble
     private float _findCooldown = 0.1f;
     [SerializeField]
     private float _attackRange = 1f;
+    [SerializeField]
+    private AudioClip _attackSound;
     
     
     private AnimationCtrl<CharacterAnimationState> _animationController;
@@ -95,6 +97,7 @@ public class CharacterAttack : BaseEntityAttack, IUpdateAble, IGetComponentAble
 
         if(collisionGameObject.TryGetComponent<BaseEntityDamaged>(out BaseEntityDamaged damaged))
         {
+            SoundManager.Instance.Play(AudioType.SFX, _attackSound);
             damaged.Damaged(_atk, TextType.EnemyDamage);
         }
 

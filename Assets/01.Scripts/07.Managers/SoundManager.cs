@@ -48,15 +48,9 @@ public class SoundManager : MonoSingleton<SoundManager>
             _audioSources[i].playOnAwake = false;
             _audioSources[i].outputAudioMixerGroup = _audioMixer.FindMatchingGroups(((AudioType)i).ToString())[0];
         }
+        
         _audioSources[(int)AudioType.BGM].loop = true;
     }
-    // private void InitBGM()
-    // {
-    //     for (int i = 0; i < _bgms.Count; ++i)
-    //     {
-    //         _bgmDict.Add(((BuildingScenes)i).ToString(), _bgms[i]);
-    //     }
-    // }
 
     private void InitializePlayMethod()
     {
