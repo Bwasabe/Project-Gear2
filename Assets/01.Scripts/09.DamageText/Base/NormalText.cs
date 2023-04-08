@@ -9,12 +9,7 @@ public class NormalText : BaseDamageText
 {
     [SerializeField]
     private NormalTextData _textData;
-
-    protected override void Awake()
-    {
-        base.Awake();
-    }
-
+    
     public override BaseDamageTextData TextData{
         get {
             return _textData;

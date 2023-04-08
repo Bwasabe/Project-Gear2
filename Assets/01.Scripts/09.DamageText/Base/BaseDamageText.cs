@@ -7,10 +7,14 @@ public abstract class BaseDamageText : MonoBehaviour
     public abstract BaseDamageTextData TextData{ get; set; }
 
     protected TMP_Text _text;
+    
+    protected Vector3 _textScale;
+
     protected virtual void Awake()
     {
         _text = GetComponentInChildren<TMP_Text>();
 
+        _textScale = _text.transform.localScale;
         ResetValue();
     }
 
@@ -52,6 +56,7 @@ public abstract class BaseDamageText : MonoBehaviour
 
     protected virtual void ResetValue()
     {
+        _text.transform.localScale = _textScale;
         _text.transform.localPosition = Vector3.zero;
         _text.fontSize = TextData.DefaultTextSize;
     }
