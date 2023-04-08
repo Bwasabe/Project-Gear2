@@ -8,6 +8,8 @@ public class EnemyMoveLeaf : BT_Node
     private float _duration;
 
     private readonly EnemyVariable _variable;
+
+    private bool _isFirstEnterMove = true;
     public EnemyMoveLeaf(BehaviourTree tree, List<BT_Node> children = null) : base(tree, children)
     {
         _variable = tree.Variable as EnemyVariable;
@@ -15,7 +17,16 @@ public class EnemyMoveLeaf : BT_Node
 
     protected override void OnEnter()
     {
-        _duration = Random.Range(_variable.MoveDurationMin, _variable.MoveDurationMax);
+        if(_isFirstEnterMove)
+        {
+            _duration = Random.Range(_variable.EnterMoveDurationMin, _variable.EnterMoveDurationMax);
+            _isFirstEnterMove = false;
+        }
+        else
+        {
+            _duration = Random.Range(_variable.MoveDurationMin, _variable.MoveDurationMax);
+        }
+        
 
         float randomX = Random.Range(-1f, 1f);
         float randomY = Random.Range(-1f, 1f);
@@ -57,6 +68,12 @@ public class EnemyMoveLeaf : BT_Node
         _variable.Timer = 0f;
         UpdateState = UpdateState.None;
     }
+
+    public override void ResetNode()
+    {
+        
+        base.ResetNode();
+    }
 }
 
 public partial class EnemyVariable
@@ -66,6 +83,12 @@ public partial class EnemyVariable
 
     [field: SerializeField]
     public float MoveDurationMin{ get; private set; } = 0.2f;
+    
+    [field:SerializeField]
+    public float EnterMoveDurationMax{ get; private set; } = 2f;
+
+    [field: SerializeField]
+    public float EnterMoveDurationMin{ get; private set; } = 1.5f;
 
     [field: SerializeField]
     public float MoveSpeed{ get; private set; } = 1f;

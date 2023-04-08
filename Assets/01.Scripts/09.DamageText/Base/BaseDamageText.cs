@@ -67,7 +67,7 @@ public abstract class BaseDamageText : MonoBehaviour
 public class BaseDamageTextData
 {
     [field: SerializeField]
-    public float DefaultTextSize{ get; private set; } = 30f;
+    public float DefaultTextSize{ get; private set; } = 70f;
     
 
 }

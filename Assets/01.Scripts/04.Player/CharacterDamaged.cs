@@ -11,6 +11,5 @@ public class CharacterDamaged : BaseEntityDamaged, IGetComponentAble
     public override void Damaged(float damage, TextType textType)
     {
         base.Damaged(damage, textType);
-        Debug.Log(_hp);
     }
 }

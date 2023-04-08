@@ -1,4 +1,5 @@
 using System;
+using TMPro;
 using UnityEngine;
 
 [Serializable]
@@ -10,7 +11,8 @@ public class TextContainer
     
     [field: SerializeReference]
     public BaseDamageTextData textData;
-    public TextContainer(BaseDamageText textPrefab, BaseDamageTextData textData, TextType textType)
+
+    public TextContainer(BaseDamageText textPrefab, BaseDamageTextData textData ,TextType textType)
     {
         this.textPrefab = textPrefab;
         this.textData = textData;

@@ -5,7 +5,7 @@ using UnityEngine;
 using DG.Tweening;
 using Random = UnityEngine.Random;
 
-public class NormalText : BaseDamageText
+public class NormalDamageText : BaseDamageText
 {
     [SerializeField]
     private NormalTextData _textData;
@@ -57,9 +57,7 @@ public class NormalText : BaseDamageText
 
     protected override void ResetValue()
     {
-        Debug.Log(_text.alpha);
         base.ResetValue();
-        _text.color = _textData.DefaultColor;
         _text.alpha = 1f;
         _text.transform.localScale = Vector3.one * 0.1f;
     }
@@ -70,9 +68,6 @@ public class NormalText : BaseDamageText
 [Serializable]
 public class NormalTextData : BaseDamageTextData
 {
-    
-    [field: SerializeField] public Color DefaultColor{ get; private set; } = Color.white;
-    
     [field: SerializeField] public float ScaleDelay{ get; private set; } = 0.3f;
     [field: SerializeField] public float ScaleDuration{ get; private set; } = 0.8f;
 

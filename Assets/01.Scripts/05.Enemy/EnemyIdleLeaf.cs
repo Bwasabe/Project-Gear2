@@ -44,6 +44,6 @@ public partial class EnemyVariable
     [field: SerializeField]
     public float IdleDurationMin{ get; private set; } = 0.2f;
 
-    public bool IsIdleing{ get; set; } = true;
+    public bool IsIdleing{ get; set; } = false;
 
 }

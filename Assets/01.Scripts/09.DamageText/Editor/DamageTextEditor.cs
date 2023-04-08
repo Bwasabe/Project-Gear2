@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Collections.Specialized;
 using System.Linq;
+using TMPro;
 using UnityEditor;
 using UnityEngine;
 
@@ -23,7 +24,7 @@ public class DamageTextEditor : Editor
                 for (int i = 0; i < damageTexts.Count; ++i)
                 {
                     int index = i;
-                    _damageTextManager.AddTextContainer(new TextContainer(damageTexts[i], damageTexts[i].TextData, (TextType)index)); 
+                    _damageTextManager.AddTextContainer(new TextContainer(damageTexts[i], damageTexts[i].TextData,(TextType)index)); 
                 }
                 RefreshTextContainer();            
             }
@@ -41,6 +42,7 @@ public class DamageTextEditor : Editor
         {
             BaseDamageText damageText = container.textPrefab.GetComponent<BaseDamageText>();
             container.textData = damageText.TextData;
+            
             EditorUtility.SetDirty(damageText);
         }
     }
@@ -51,6 +53,7 @@ public class DamageTextEditor : Editor
         {
             BaseDamageText damageText = container.textPrefab.GetComponent<BaseDamageText>();
             damageText.TextData = container.textData;
+
             EditorUtility.SetDirty(damageText);
         }
     }

@@ -88,7 +88,7 @@ public abstract class BT_Node
         }
     }
 
-    public void ResetNode()
+    public virtual void ResetNode()
     {
         if(_children == null) return;
         

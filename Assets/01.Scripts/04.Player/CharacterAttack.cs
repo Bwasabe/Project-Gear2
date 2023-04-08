@@ -52,7 +52,7 @@ public class CharacterAttack : BaseEntityAttack, IUpdateAble, IGetComponentAble
     {
         while (true)
         {
-            Transform closestEnemy = EnemyManager.Instance.GetClosestEnemy(transform);
+            Transform closestEnemy = EnemySpawnManager.Instance.GetClosestEnemy(transform);
 
             Target = closestEnemy;
 
@@ -97,8 +97,9 @@ public class CharacterAttack : BaseEntityAttack, IUpdateAble, IGetComponentAble
 
         if(collisionGameObject.TryGetComponent<BaseEntityDamaged>(out BaseEntityDamaged damaged))
         {
-            SoundManager.Instance.Play(AudioType.SFX, _attackSound);
-            damaged.Damaged(_atk, TextType.EnemyDamage);
+            //SoundManager.Instance.Play(AudioType.SFX, _attackSound);
+            
+            damaged.Damaged(_atk, Define.GetRandomEnum<TextType>(0, (int)TextType.PlayerDamaged));
         }
 
     }

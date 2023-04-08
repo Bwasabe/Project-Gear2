@@ -9,7 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4380779362914681300}
-  - component: {fileID: 4380779362914681301}
+  - component: {fileID: -3636827475343614495}
   m_Layer: 0
   m_Name: CriticalText
   m_TagString: Untagged
@@ -33,7 +33,7 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &4380779362914681301
+--- !u!114 &-3636827475343614495
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -42,20 +42,27 @@ MonoBehaviour:
   m_GameObject: {fileID: 4380779362914681290}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d784222d43846d74da97d899e1b59445, type: 3}
+  m_Script: {fileID: 11500000, guid: 72b61645642d4f740a4e1cb5c1f5a72f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   _textData:
-    <DefaultTextSize>k__BackingField: 30
-    <DefaultColor>k__BackingField: {r: 1, g: 1, b: 1, a: 1}
-    <ScaleDelay>k__BackingField: 0.3
-    <ScaleDuration>k__BackingField: 0.8
+    <DefaultTextSize>k__BackingField: 100
     <RadiusMin>k__BackingField: 0.5
     <RadiusMax>k__BackingField: 1
-    <TextHeight>k__BackingField: 1
-    <UpDownDuration>k__BackingField: 0.5
-    <TextEndAlpha>k__BackingField: 0
+    <TextDisplayDuration>k__BackingField: 0.5
+    <EndScaleDuration>k__BackingField: 0.5
+    <TextEndAlpha>k__BackingField: 0.2
     <AlphaDuration>k__BackingField: 0.5
+  _criticalTextData:
+    <DefaultTextSize>k__BackingField: 100
+    <RadiusMin>k__BackingField: 0.5
+    <RadiusMax>k__BackingField: 1
+    <TextDisplayDuration>k__BackingField: 0.5
+    <EndScaleDuration>k__BackingField: 0.5
+    <TextEndAlpha>k__BackingField: 0.2
+    <AlphaDuration>k__BackingField: 0.5
+    TextScale: {x: 0.3, y: 0.3, z: 0.3}
+    <ScaleDuration>k__BackingField: 0.15
 --- !u!1 &4380779362981823705
 GameObject:
   m_ObjectHideFlags: 0
@@ -114,7 +121,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: -7618710176075319754, guid: fbb8df7c0b439f9498d897c89f4a264d, type: 2}
+  - {fileID: 4332748010342185018, guid: 18466007bf875c84abc834c70868687f, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -160,8 +167,8 @@ MonoBehaviour:
 
 '
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: fbb8df7c0b439f9498d897c89f4a264d, type: 2}
-  m_sharedMaterial: {fileID: -7618710176075319754, guid: fbb8df7c0b439f9498d897c89f4a264d, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 18466007bf875c84abc834c70868687f, type: 2}
+  m_sharedMaterial: {fileID: 4332748010342185018, guid: 18466007bf875c84abc834c70868687f, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []

@@ -26,7 +26,10 @@ public class EnemyAttackLeaf : BT_Node
 
     private void AttackTarget()
     {
-        _variable.Target?.Damaged(_variable.Damage, TextType.PlayerDamaged);
+        if(_variable.Target == null) return;
+
+        DamageTextManager.Instance.GetDamageText(TextType.PlayerDamaged, (-_variable.Damage).ToString()).SetPosition(_variable.Target.transform.position).ShowText();
+        _variable.Target.Damaged(_variable.Damage, TextType.PlayerDamaged);
     }
 
     private void Flip()

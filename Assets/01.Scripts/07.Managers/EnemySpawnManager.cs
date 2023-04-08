@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class EnemyManager : MonoSingleton<EnemyManager>
+public class EnemySpawnManager : MonoSingleton<EnemySpawnManager>
 {
     [SerializeField]
     private GameObject _enemyPrefab;
