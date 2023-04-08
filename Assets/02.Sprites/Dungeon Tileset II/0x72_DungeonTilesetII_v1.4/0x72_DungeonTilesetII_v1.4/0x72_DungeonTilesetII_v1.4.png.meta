@@ -47,7 +47,7 @@ TextureImporter:
   spriteMeshType: 1
   alignment: 0
   spritePivot: {x: 0.5, y: 0.5}
-  spritePixelsToUnits: 100
+  spritePixelsToUnits: 16
   spriteBorder: {x: 0, y: 0, z: 0, w: 0}
   spriteGenerateFallbackPhysicsShape: 1
   alphaUsage: 1
@@ -92,6 +92,18 @@ TextureImporter:
   - serializedVersion: 3
     buildTarget: Server
     maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: Android
+    maxTextureSize: 1024
     resizeAlgorithm: 0
     textureFormat: -1
     textureCompression: 1
@@ -11299,7 +11311,7 @@ TextureImporter:
       0x72_DungeonTilesetII_v1.4_102: 1693007003
       0x72_DungeonTilesetII_v1.4_338: -502952665
       0x72_DungeonTilesetII_v1.4_150: -1759891466
-      0x72_DungeonTilesetII_v1.4_248: 942485920
+      0x72_DungeonTilesetII_v1.4_510: -373440336
       0x72_DungeonTilesetII_v1.4_416: 274024152
       0x72_DungeonTilesetII_v1.4_21: -857713849
       0x72_DungeonTilesetII_v1.4_124: -1460102852
@@ -11308,7 +11320,7 @@ TextureImporter:
       0x72_DungeonTilesetII_v1.4_399: -1095694612
       0x72_DungeonTilesetII_v1.4_75: 2118862368
       0x72_DungeonTilesetII_v1.4_275: -1063655539
-      0x72_DungeonTilesetII_v1.4_510: -373440336
+      0x72_DungeonTilesetII_v1.4_248: 942485920
       0x72_DungeonTilesetII_v1.4_441: -2147024008
       0x72_DungeonTilesetII_v1.4_402: -1037931726
       0x72_DungeonTilesetII_v1.4_422: 1585213498
@@ -11435,15 +11447,15 @@ TextureImporter:
       0x72_DungeonTilesetII_v1.4_109: -1257482537
       0x72_DungeonTilesetII_v1.4_144: 710354889
       0x72_DungeonTilesetII_v1.4_85: 2039202601
-      0x72_DungeonTilesetII_v1.4_218: -1083739902
-      0x72_DungeonTilesetII_v1.4_292: -1209458123
-      0x72_DungeonTilesetII_v1.4_31: -110972250
-      0x72_DungeonTilesetII_v1.4_315: -723766641
       0x72_DungeonTilesetII_v1.4_366: 1186844677
+      0x72_DungeonTilesetII_v1.4_292: -1209458123
+      0x72_DungeonTilesetII_v1.4_218: -1083739902
+      0x72_DungeonTilesetII_v1.4_31: -110972250
       0x72_DungeonTilesetII_v1.4_352: 1866488639
+      0x72_DungeonTilesetII_v1.4_315: -723766641
+      0x72_DungeonTilesetII_v1.4_435: -1358036728
       0x72_DungeonTilesetII_v1.4_488: 797030872
       0x72_DungeonTilesetII_v1.4_246: -246667636
-      0x72_DungeonTilesetII_v1.4_435: -1358036728
       0x72_DungeonTilesetII_v1.4_273: -1889361799
       0x72_DungeonTilesetII_v1.4_19: -2024008334
       0x72_DungeonTilesetII_v1.4_217: -133910091
