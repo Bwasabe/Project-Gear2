@@ -10,7 +10,8 @@ public class Enemy : BehaviourTree, IGetComponentAble
 
     
     public Action OnDistanceLeafChanged;
-    
+
+    private EnemyAnimationController _animationController;
     private void Awake()
     {
         _variable.Rigidbody2D = GetComponent<Rigidbody2D>();
@@ -19,6 +20,8 @@ public class Enemy : BehaviourTree, IGetComponentAble
     protected override void Start()
     {
         base.Start();
+        
+        _variable.AnimationController = _animationController.AnimationCtrl;
         StartCoroutine(FindTarget());
     }
 
@@ -47,9 +50,8 @@ public class Enemy : BehaviourTree, IGetComponentAble
 
     public void InitializeComponent(EntityComponentController componentController)
     {
-        EnemyAnimationController animationController = componentController.GetEntityComponent<EnemyAnimationController>();
-        _variable.AnimationController = animationController.AnimationCtrl;
-
+        _animationController = componentController.GetEntityComponent<EnemyAnimationController>();
+        
         AnimationEventHandler eventHandler = componentController.GetEntityComponent<AnimationEventHandler>();
         _variable.AnimationEventHandler = eventHandler;
     }

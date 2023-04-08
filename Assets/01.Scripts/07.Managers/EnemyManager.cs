@@ -43,7 +43,7 @@ public class EnemyManager : MonoSingleton<EnemyManager>
 
     private void SpawnEnemy()
     {
-        GameObject enemy = Instantiate(_enemyPrefab, Define.MousePos, Quaternion.identity);
+        GameObject enemy = PoolManager.Instantiate(_enemyPrefab, Define.MousePos, Quaternion.identity);
         _enemyTransformList.Add(enemy.transform);
     }
 }

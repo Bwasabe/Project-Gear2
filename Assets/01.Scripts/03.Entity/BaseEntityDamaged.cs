@@ -28,7 +28,7 @@ public abstract class BaseEntityDamaged : MonoBehaviour
         if(_hp <= 0f)
         {
             OnDied?.Invoke();
-            gameObject.SetActive(false);
+            PoolManager.Destroy(gameObject);
         }
     }
 }

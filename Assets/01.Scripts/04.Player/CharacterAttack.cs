@@ -14,6 +14,7 @@ public class CharacterAttack : BaseEntityAttack, IUpdateAble, IGetComponentAble
     private AnimationCtrl<CharacterAnimationState> _animationController;
     private AnimationEventHandler _animationEventHandler;
     private CharacterStateController _characterStateController;
+    private CharacterAnimationController _characterAnimationController;
 
     private const string ATTACK_END_CALLBACK = "AttackEndCallback";
     
@@ -21,8 +22,8 @@ public class CharacterAttack : BaseEntityAttack, IUpdateAble, IGetComponentAble
     
     public void InitializeComponent(EntityComponentController componentController)
     {
-        CharacterAnimationController characterAnimationController = componentController.GetEntityComponent<CharacterAnimationController>();
-        _animationController = characterAnimationController.AnimationCtrl;
+        _characterAnimationController = componentController.GetEntityComponent<CharacterAnimationController>();
+        
         
         _animationEventHandler = componentController.GetEntityComponent<AnimationEventHandler>();
         _characterStateController = componentController.GetEntityComponent<CharacterStateController>();
@@ -41,7 +42,7 @@ public class CharacterAttack : BaseEntityAttack, IUpdateAble, IGetComponentAble
     private void Start()
     {
         _animationEventHandler.AddEvent(ATTACK_END_CALLBACK, AttackEndCallback);
-        
+        _animationController = _characterAnimationController.AnimationCtrl;
         StartCoroutine(FindTarget());
     }
 
