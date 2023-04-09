@@ -75,8 +75,6 @@ public class SoundManager : MonoSingleton<SoundManager>
 
     private void PlaySFX(AudioClip clip)
     {
-        Debug.Log("SFX 출력");
-
         if(clip == null)
         {
             Debug.Log("Clip is Null");
