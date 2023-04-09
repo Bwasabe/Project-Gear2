@@ -8,13 +8,13 @@ public class AnimationCtrl<T> where T : Enum
 
         //private readonly Dictionary<string, AnimationClip> _animationClipDict = new Dictionary<string, AnimationClip>();
 
-        private Animator _animator;
+        public Animator Animator{get; init;}
 
         private T _currentAnimationState;
 
         public AnimationCtrl(Animator animator)
         {
-            _animator = animator;
+            Animator = animator;
 
             // for (int j = 0; j < Animator.runtimeAnimatorController.animationClips.Length; ++j)
             // {
@@ -42,7 +42,7 @@ public class AnimationCtrl<T> where T : Enum
         public void SetAnimationState(T animationState)
         {
             _currentAnimationState = animationState;
-            _animator.SetInteger(STATE_HASH, Define.EnumToInt(animationState));
+            Animator.SetInteger(STATE_HASH, Define.EnumToInt(animationState));
         }
 
         public void TrySetAnimationState(T animationState)

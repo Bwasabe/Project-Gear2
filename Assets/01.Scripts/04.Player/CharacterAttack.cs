@@ -79,6 +79,13 @@ public class CharacterAttack : BaseEntityAttack, IUpdateAble, IGetComponentAble
         CheckDistance();
     }
 
+    public void ScaleUp(float multiple)
+    {
+        _atk *= multiple;
+        _attackRange *= multiple;
+        
+    }
+
     private void CheckDistance()
     {
         if(Target is null) return;

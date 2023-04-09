@@ -13,6 +13,9 @@ public abstract class CharacterSkillBase : MonoBehaviour
 
     [field:SerializeField] public Color SkillBackgroundColor{get;private set;}
 
+    [SerializeField]
+    protected float _mp;
+
 
     public event Action<float> OnSkillTimerChanged;
 

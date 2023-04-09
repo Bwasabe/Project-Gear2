@@ -25,6 +25,7 @@ public class PlayerSkillUI : MonoBehaviour
         _button = GetComponent<Button>();
 
     }
+    
 
     private void Start() {
         _button.onClick.AddListener(OnClickSkillUI);
@@ -32,10 +33,7 @@ public class PlayerSkillUI : MonoBehaviour
 
     private void OnClickSkillUI()
     {
-        if(!_characterSkillBase.IsCanUseSkill)return;
         _characterSkillBase.ExecuteSkill();
-
-        
     }
 
     private void SetCooldownImageFillAmount(float percent)

@@ -86,7 +86,7 @@ public class Enemy : BehaviourTree, IGetComponentAble, IPoolReturnAble, IPoolIni
     {
         _variable.Rigidbody2D.velocity = Vector2.zero;
         _variable.Target = null;
-        _root.ResetNode();
+        _root?.ResetNode();
     }
     public void Init()
     {

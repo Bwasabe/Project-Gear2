@@ -25,7 +25,7 @@ public class DamageTextManager : MonoSingleton<DamageTextManager>
     {
         if(Input.GetKeyDown(KeyCode.Space))
         {
-            var damageText = GetDamageText(_damageTextType);
+            var damageText = GetDamageText(_damageTextType).SetText("-10");
             damageText.ShowText();
         }
     }
