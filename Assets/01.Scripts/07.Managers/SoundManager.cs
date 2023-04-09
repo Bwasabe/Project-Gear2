@@ -54,6 +54,7 @@ public class SoundManager : MonoSingleton<SoundManager>
 
     private void InitializePlayMethod()
     {
+        _audioActionDictionary.Add(AudioType.BGM,PlayerBGM);
         _audioActionDictionary[AudioType.BGM] += PlayBGM;
         _audioActionDictionary[AudioType.SFX] += PlaySFX;
     }
