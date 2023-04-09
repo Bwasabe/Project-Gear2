@@ -18,7 +18,14 @@ public class AnimationEventHandler : MonoBehaviour, IGetComponentAble
 
     public void AddEvent(string actionName, Action action)
     {
-        if(!_playerAnimationEventDict.TryAdd(actionName, action))
-            throw new System.Exception("ActionName is already exist in Dictionary or Action is Wrong");
+        if (_playerAnimationEventDict.TryGetValue(actionName, out Action thisEvent))
+        {
+            thisEvent += action;
+            _playerAnimationEventDict[actionName] = thisEvent;
+        }
+        else
+        {
+            _playerAnimationEventDict.Add(actionName, action);
+        }
     }
 }

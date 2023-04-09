@@ -11,6 +11,8 @@ public class CharacterAttack : BaseEntityAttack, IUpdateAble, IGetComponentAble
     private float _attackRange = 1f;
     [SerializeField]
     private AudioClip _attackSound;
+    [SerializeField]
+    private AudioClip _hitSound;
     
     
     private AnimationCtrl<CharacterAnimationState> _animationController;
@@ -81,6 +83,8 @@ public class CharacterAttack : BaseEntityAttack, IUpdateAble, IGetComponentAble
     {
         _characterStateController.AddState(CharacterState.Attack);
         _animationController.TrySetAnimationState(CharacterAnimationState.Attack);
+        SoundManager.Instance.Play(AudioType.SFX, _attackSound);
+
     }
 
     private void AttackEndCallback()
@@ -97,8 +101,7 @@ public class CharacterAttack : BaseEntityAttack, IUpdateAble, IGetComponentAble
 
         if(collisionGameObject.TryGetComponent<BaseEntityDamaged>(out BaseEntityDamaged damaged))
         {
-            //SoundManager.Instance.Play(AudioType.SFX, _attackSound);
-            
+            SoundManager.Instance.Play(AudioType.SFX, _hitSound);
             damaged.Damaged(_atk, Define.GetRandomEnum<TextType>(0, (int)TextType.PlayerDamaged));
         }
 

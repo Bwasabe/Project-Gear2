@@ -42,6 +42,8 @@ public class EnemySpawnManager : MonoSingleton<EnemySpawnManager>
     protected override void Start()
     {
         StartCoroutine(SpawnPortalCoroutine());
+        
+        SpawnPortalByDistance(CharacterManager.Instance.Knight.transform);
     }
     
     private void Update()
