@@ -52,7 +52,7 @@ public class CharacterMove : BaseEntityMove, IUpdateAble, IGetComponentAble
     {
         if(_joystick.Active)
         {
-            _rb.velocity = _joystick.Direction * Speed;
+            _rb.velocity = _joystick.Direction * _speed;
         }
         else if(_characterAttack.Target == null || _characterStateController.HasState(CharacterState.Attack))
         {
@@ -61,7 +61,7 @@ public class CharacterMove : BaseEntityMove, IUpdateAble, IGetComponentAble
         else
         {
             Vector2 dir = (_characterAttack.Target.position - transform.position).normalized;
-            _rb.velocity = dir * Speed;
+            _rb.velocity = dir * _speed;
         }
         
     }

@@ -33,10 +33,7 @@ public class PlayerSkillUI : MonoBehaviour
 
     private void OnClickSkillUI()
     {
-        if(!_characterSkillBase.IsCanUseSkill)return;
-
         _characterSkillBase.ExecuteSkill();
-        _characterSkillBase.StartCooldown(); 
     }
 
     private void SetCooldownImageFillAmount(float percent)

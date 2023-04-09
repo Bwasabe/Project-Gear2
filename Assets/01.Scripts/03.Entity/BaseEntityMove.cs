@@ -4,8 +4,8 @@ using UnityEngine;
 
 public abstract class BaseEntityMove : MonoBehaviour
 {
-    [field:SerializeField]
-    public float Speed{get;set;}
+    [SerializeField]
+    protected float _speed;
 
     protected abstract void Move();
 }

@@ -16,15 +16,16 @@ public class KnightScaleUp : CharacterSkillBase, IGetComponentAble
 
     private CharacterAttack _characterAttack;
 
+    private CharacterSkillController _skillController;
     
     private Transform _root;
     public void InitializeComponent(EntityComponentController componentController){
+        _skillController = componentController.GetEntityComponent<CharacterSkillController>();
         _characterAttack = componentController.GetEntityComponent<CharacterAttack>();
     }
 
-    protected override void OnEnable() {
-        PlayerSkillUIManager.Instance.AddSkill(this, 1);
-        base.OnEnable();
+    private void OnEnable() {
+        PlayerSkillUIManager.Instance.AddSkill(this, 0);
     }
 
     private void Start() {
@@ -34,6 +35,11 @@ public class KnightScaleUp : CharacterSkillBase, IGetComponentAble
 
     public override void ExecuteSkill()
     {
+        if(!_skillController.IsCanMpEnough(_mp))return;
+        _skillController.ScaleUp = true;
+
+        _skillController.UseMp(_mp);
+
         StartCoroutine(ScaleUp());
     }
 
