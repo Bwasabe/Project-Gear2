@@ -6,6 +6,9 @@ using UnityEngine;
 [RequireComponent(typeof(Rigidbody2D))]
 public class CharacterMove : BaseEntityMove, IUpdateAble, IGetComponentAble
 {
+    [SerializeField]
+    private FloatingJoystick _joystick;
+    
     private Rigidbody2D _rb;
 
     private CharacterAttack _characterAttack;
@@ -47,15 +50,20 @@ public class CharacterMove : BaseEntityMove, IUpdateAble, IGetComponentAble
 
     protected override void Move()
     {
-        if(_characterAttack.Target == null || _characterStateController.HasState(CharacterState.Attack))
+        if(_joystick.Active)
+        {
+            _rb.velocity = _joystick.Direction * _speed;
+        }
+        else if(_characterAttack.Target == null || _characterStateController.HasState(CharacterState.Attack))
         {
             _rb.velocity = Vector2.zero;
-
-            return;
+        }
+        else
+        {
+            Vector2 dir = (_characterAttack.Target.position - transform.position).normalized;
+            _rb.velocity = dir * _speed;
         }
         
-        Vector2 dir = (_characterAttack.Target.position - transform.position).normalized;
-        _rb.velocity = dir * _speed;
     }
     
     private void SetAnimationByVelocity()
@@ -91,13 +99,7 @@ public class CharacterMove : BaseEntityMove, IUpdateAble, IGetComponentAble
 
         transform.localScale = scale;
     }
-    //
-    // private void SetInput(ref Vector2 input)
-    // {
-    //     input.x = Input.GetAxisRaw("Horizontal");
-    //     input.y = Input.GetAxisRaw("Vertical");
-    // }
 
-    
-    
+
+
 }

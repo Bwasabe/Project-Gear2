@@ -13,13 +13,11 @@ public class EnemyDistanceCondition : BT_Condition
     }
     
     private readonly EnemyVariable _variable;
-
-    private readonly Enemy _enemy;
+    
     
     private ConditionChild _executeChild = ConditionChild.None;
-    public EnemyDistanceCondition(Enemy tree, List<BT_Node> children) : base(tree, children)
+    public EnemyDistanceCondition(BehaviourTree tree, List<BT_Node> children) : base(tree, children)
     {
-        _enemy = tree;
         _variable = tree.Variable as EnemyVariable;
     }
     
@@ -41,11 +39,6 @@ public class EnemyDistanceCondition : BT_Condition
 
     private NodeResult ExecuteChild(ConditionChild child)
     {
-        if(CheckExecuteChildIsChanged(child))
-        {
-            _enemy.OnDistanceLeafChanged?.Invoke();
-        }
-        
         return _children[(int)child].Execute();
     }
 

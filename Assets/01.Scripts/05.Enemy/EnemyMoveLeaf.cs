@@ -9,7 +9,6 @@ public class EnemyMoveLeaf : BT_Node
 
     private readonly EnemyVariable _variable;
 
-    private bool _isFirstEnterMove = true;
     public EnemyMoveLeaf(BehaviourTree tree, List<BT_Node> children = null) : base(tree, children)
     {
         _variable = tree.Variable as EnemyVariable;
@@ -17,23 +16,16 @@ public class EnemyMoveLeaf : BT_Node
 
     protected override void OnEnter()
     {
-        if(_isFirstEnterMove)
-        {
-            _duration = Random.Range(_variable.EnterMoveDurationMin, _variable.EnterMoveDurationMax);
-            _isFirstEnterMove = false;
-        }
-        else
-        {
-            _duration = Random.Range(_variable.MoveDurationMin, _variable.MoveDurationMax);
-        }
-        
+
+        _duration = Random.Range(_variable.MoveDurationMin, _variable.MoveDurationMax);
+
 
         float randomX = Random.Range(-1f, 1f);
         float randomY = Random.Range(-1f, 1f);
         _dir = new Vector2(randomX, randomY).normalized;
-        
+
         _variable.AnimationController.TrySetAnimationState(EnemyAnimationState.Move);
-        
+
         UpdateState = UpdateState.Update;
     }
 
@@ -43,7 +35,7 @@ public class EnemyMoveLeaf : BT_Node
         if(_variable.Timer > _duration)
         {
             _variable.Timer = 0f;
-            
+
             UpdateState = UpdateState.Exit;
         }
         else
@@ -71,24 +63,18 @@ public class EnemyMoveLeaf : BT_Node
 
     public override void ResetNode()
     {
-        
+
         base.ResetNode();
     }
 }
 
 public partial class EnemyVariable
 {
-    [field:SerializeField]
+    [field: SerializeField]
     public float MoveDurationMax{ get; private set; } = 0.5f;
 
     [field: SerializeField]
     public float MoveDurationMin{ get; private set; } = 0.2f;
-    
-    [field:SerializeField]
-    public float EnterMoveDurationMax{ get; private set; } = 2f;
-
-    [field: SerializeField]
-    public float EnterMoveDurationMin{ get; private set; } = 1.5f;
 
     [field: SerializeField]
     public float MoveSpeed{ get; private set; } = 1f;

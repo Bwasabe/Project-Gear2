@@ -12,6 +12,16 @@ public class Bound
     [SerializeField]
     private Vector2 _rb;
 
+    public Bound()
+    {}
+
+
+    public Bound(Vector2 lt, Vector2 rb)
+    {
+        _lt = lt;
+        _rb = rb;
+    }
+    
     public Vector2 Center => new Vector2(_lt.x + (_rb.x - _lt.x) * 0.5f, _lt.y + (_rb.y - _lt.y) * 0.5f);
     public Vector2 Size => new Vector2(_rb.x - _lt.x, _rb.y - _lt.y);
 

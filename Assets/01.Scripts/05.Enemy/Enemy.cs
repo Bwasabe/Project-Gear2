@@ -7,9 +7,7 @@ public class Enemy : BehaviourTree, IGetComponentAble, IPoolReturnAble, IPoolIni
 {
     [SerializeField]
     private EnemyVariable _variable;
-
     
-    public Action OnDistanceLeafChanged;
 
     private EnemyAnimationController _animationController;
     
@@ -48,7 +46,7 @@ public class Enemy : BehaviourTree, IGetComponentAble, IPoolReturnAble, IPoolIni
     {
         while (!_variable.IsStopFindTarget)
         {
-            Transform targetTrm = CharacterManager.Instance.GetClosestCharacter(transform);
+            Transform targetTrm = CharacterManager.Instance.GetCharacter(transform);
 
             if(targetTrm is null)
             {
@@ -86,7 +84,6 @@ public class Enemy : BehaviourTree, IGetComponentAble, IPoolReturnAble, IPoolIni
 
     public void Return()
     {
-        Debug.Log("Return");
         _variable.Rigidbody2D.velocity = Vector2.zero;
         _variable.Target = null;
         _root.ResetNode();

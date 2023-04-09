@@ -24,35 +24,13 @@ public class CharacterManager : MonoSingleton<CharacterManager>
         }
     }
 
-    private List<Transform> _characters = new();
-
-    private void Awake()
-    {
-        _characters.Add(Knight.transform);
-    }
     
-
-    public Transform GetClosestCharacter(Transform enemy)
+    public Transform GetCharacter(Transform enemy)
     {
-        if(_characters.Count <= 0) return null;
+        if(!Knight.gameObject.activeSelf) return null;
 
-        Transform closestCharacter = null;
-
-        float minSqrMagnitude = float.MaxValue;
-
-        foreach (Transform character in _characters)
-        {
-            if(!character.gameObject.activeSelf) continue;
-            
-            float sqrMagnitude = (character.position - enemy.position).sqrMagnitude;
-            
-            if(sqrMagnitude < minSqrMagnitude)
-            {
-                minSqrMagnitude = sqrMagnitude;
-                closestCharacter = character;
-            }
-        }
-
-        return closestCharacter;
+        return Knight.transform;
+        
+        
     }
 }

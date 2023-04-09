@@ -94,7 +94,6 @@ public abstract class BT_Node
         
         foreach (BT_Node child in _children)
         {
-            Debug.Log(child.GetType());
             int updateStateInt = (int)child.UpdateState;
 
             if(updateStateInt != (int)UpdateState.None)

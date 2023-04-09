@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
@@ -39,15 +40,23 @@ public class Joystick : MonoBehaviour, IPointerDownHandler, IDragHandler, IPoint
     private Camera cam;
 
     private Vector2 input = Vector2.zero;
+    
 
     protected virtual void Start()
     {
         HandleRange = handleRange;
         DeadZone = deadZone;
+        
         baseRect = GetComponent<RectTransform>();
         canvas = GetComponentInParent<Canvas>();
+        
+        
         if (canvas == null)
             Debug.LogError("The Joystick is not placed inside a canvas");
+        
+        cam = null;
+        if (canvas.renderMode == RenderMode.ScreenSpaceCamera)
+            cam = canvas.worldCamera;
 
         Vector2 center = new Vector2(0.5f, 0.5f);
         background.pivot = center;
@@ -64,9 +73,7 @@ public class Joystick : MonoBehaviour, IPointerDownHandler, IDragHandler, IPoint
 
     public void OnDrag(PointerEventData eventData)
     {
-        cam = null;
-        if (canvas.renderMode == RenderMode.ScreenSpaceCamera)
-            cam = canvas.worldCamera;
+
 
         Vector2 position = RectTransformUtility.WorldToScreenPoint(cam, background.position);
         Vector2 radius = background.sizeDelta / 2;

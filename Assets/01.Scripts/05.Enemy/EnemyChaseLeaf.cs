@@ -1,41 +1,41 @@
 ﻿using System.Collections.Generic;
+using DG.Tweening;
 using UnityEngine;
 
 public class EnemyChaseLeaf : BT_Node
 {
     private readonly EnemyVariable _variable;
 
-    private readonly Enemy _enemy;
-    public EnemyChaseLeaf(Enemy tree, List<BT_Node> children = null) : base(tree, children)
+    public EnemyChaseLeaf(BehaviourTree tree, List<BT_Node> children = null) : base(tree, children)
     {
-        _enemy = tree;
         _variable = tree.Variable as EnemyVariable;
-
-        _enemy.OnDistanceLeafChanged += OnLeafChanged;
-    }
-
-    private void OnLeafChanged()
-    {
-        UpdateState = UpdateState.None;
     }
 
     protected override void OnEnter()
     {
-        Debug.Log("ChaseEnter");
-        _variable.AnimationController.SetAnimationState(EnemyAnimationState.Move);
+        //_variable.ExMark.transform.DOScale(Vector3.one * 0.1f,_variable.ExMarkScaleDuration).SetEase(Ease.OutElastic);
+
 
         UpdateState = UpdateState.Update;
     }
 
     protected override void OnUpdate()
     {
+        _variable.AnimationController.SetAnimationState(EnemyAnimationState.Move);
         base.OnUpdate();
         Vector2 dir = (_variable.Target.transform.position - _tree.transform.position).normalized;
         
         Flip();
         _variable.Rigidbody2D.velocity = dir * _variable.ChaseSpeed;
     }
-    
+
+    public override void ResetNode()
+    {
+        UpdateState = UpdateState.None;
+        // _variable.ExMark.localScale = Vector3.zero;
+        base.ResetNode();
+    }
+
     private void Flip()
     {
         if(_variable.Rigidbody2D.velocity.x < 0)
@@ -47,6 +47,8 @@ public class EnemyChaseLeaf : BT_Node
 
 public partial class EnemyVariable
 {
-    [field: SerializeField]
-    public float ChaseSpeed{ get; private set; } = 1f;
+    [field: SerializeField] public float ChaseSpeed{ get; private set; } = 1f;
+    
+    // [field:SerializeField] public Transform ExMark{ get; private set; }
+    // [field: SerializeField] public float ExMarkScaleDuration{ get; private set; } = 0.1f;
 }

@@ -29,7 +29,7 @@ public class MonoSingleton<T> : MonoBehaviour where T : MonoSingleton<T>
             }
         }
     }
-    private void Start() {
+    protected virtual void Start() {
         _shuttingDown = false;
     }
     private void OnDestroy()
