@@ -29855,7 +29855,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d6a5033d381b00a46a66252fbf3045b5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  <Speed>k__BackingField: 5
+  _speed: 0
   _joystick: {fileID: 1749039694}
 --- !u!50 &425651417
 Rigidbody2D:
@@ -37252,13 +37252,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 39ba8c77a2c4edc48b495dc7927f0277, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _skillCooldown: 3
-  <CooldownTimer>k__BackingField: 0
-  <SkillIcon>k__BackingField: {fileID: 21300000, guid: ecb37698ca1a5544fb89c007a8ab74ca, type: 3}
-  <SkillBackgroundColor>k__BackingField: {r: 0.33333334, g: 0.31764707, b: 0.83137256, a: 1}
-  _speedUpParticle: {fileID: 2070810970}
-  _speedUp: 8
-  _speedUpDuration: 5
 --- !u!1 &468443074
 GameObject:
   m_ObjectHideFlags: 0
@@ -56631,7 +56624,7 @@ ParticleSystem:
         m_RotationOrder: 4
     startSizeY:
       serializedVersion: 2
-      minMaxState: 0
+      minMaxState: 3
       scalar: 1
       minScalar: 1
       maxCurve:
@@ -56684,7 +56677,7 @@ ParticleSystem:
         m_RotationOrder: 4
     startSizeZ:
       serializedVersion: 2
-      minMaxState: 0
+      minMaxState: 3
       scalar: 1
       minScalar: 1
       maxCurve:
@@ -100650,7 +100643,7 @@ PolygonCollider2D:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1482746928}
-  m_Enabled: 0
+  m_Enabled: 1
   m_Density: 1
   m_Material: {fileID: 0}
   m_IsTrigger: 1
@@ -100838,6 +100831,8 @@ MonoBehaviour:
   <CooldownTimer>k__BackingField: 0
   <SkillIcon>k__BackingField: {fileID: 21300000, guid: 8e88614a5d2aead4998a8c70955662c6, type: 3}
   <SkillBackgroundColor>k__BackingField: {r: 0.33333334, g: 0.31764707, b: 0.83137256, a: 1}
+  _mp: 0
+  _healParticle: {fileID: 65840152}
   _heal: 10
 --- !u!1 &1648297174
 GameObject:
@@ -106090,6 +106085,7 @@ MonoBehaviour:
   <CooldownTimer>k__BackingField: 0
   <SkillIcon>k__BackingField: {fileID: 21300000, guid: 0ac55f9f886d827408c102bdf33c5ff7, type: 3}
   <SkillBackgroundColor>k__BackingField: {r: 0.33333334, g: 0.31764707, b: 0.83137256, a: 1}
+  _mp: 0
   _scaleMultiple: 5
   _scaleAnimationDuration: 1
   _ScaleUpDuration: 3
@@ -106490,7 +106486,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &2070810971
 Transform:
   m_ObjectHideFlags: 0
