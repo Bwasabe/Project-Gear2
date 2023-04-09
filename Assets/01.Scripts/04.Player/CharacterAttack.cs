@@ -13,6 +13,12 @@ public class CharacterAttack : BaseEntityAttack, IUpdateAble, IGetComponentAble
     private AudioClip _attackSound;
     [SerializeField]
     private AudioClip _hitSound;
+
+    [SerializeField]
+    private float _criticalPercent = 50;
+
+    [SerializeField]
+    private float _criticalDamage = 2f;
     
     
     private AnimationCtrl<CharacterAnimationState> _animationController;
@@ -21,7 +27,10 @@ public class CharacterAttack : BaseEntityAttack, IUpdateAble, IGetComponentAble
     private CharacterAnimationController _characterAnimationController;
 
     private const string ATTACK_END_CALLBACK = "AttackEndCallback";
-    
+    private const string ATTACK_START = "AttackStart";
+
+    private bool _isCanPlaySound = false;
+
     public Transform Target{ get; private set; }
     
     public void InitializeComponent(EntityComponentController componentController)
@@ -46,7 +55,10 @@ public class CharacterAttack : BaseEntityAttack, IUpdateAble, IGetComponentAble
     private void Start()
     {
         _animationEventHandler.AddEvent(ATTACK_END_CALLBACK, AttackEndCallback);
+        _animationEventHandler.AddEvent(ATTACK_START, AttackStart);
+
         _animationController = _characterAnimationController.AnimationCtrl;
+
         StartCoroutine(FindTarget());
     }
 
@@ -83,8 +95,12 @@ public class CharacterAttack : BaseEntityAttack, IUpdateAble, IGetComponentAble
     {
         _characterStateController.AddState(CharacterState.Attack);
         _animationController.TrySetAnimationState(CharacterAnimationState.Attack);
-        SoundManager.Instance.Play(AudioType.SFX, _attackSound);
 
+    }
+    private void AttackStart()
+    {
+        SoundManager.Instance.Play(AudioType.SFX, _attackSound);
+        _isCanPlaySound = true;
     }
 
     private void AttackEndCallback()
@@ -101,8 +117,24 @@ public class CharacterAttack : BaseEntityAttack, IUpdateAble, IGetComponentAble
 
         if(collisionGameObject.TryGetComponent<BaseEntityDamaged>(out BaseEntityDamaged damaged))
         {
-            SoundManager.Instance.Play(AudioType.SFX, _hitSound);
-            damaged.Damaged(_atk, Define.GetRandomEnum<TextType>(0, (int)TextType.PlayerDamaged));
+            if(_isCanPlaySound)
+            {
+                SoundManager.Instance.Play(AudioType.SFX, _hitSound);
+                _isCanPlaySound = false;
+            }
+
+            float criticalRandom = UnityEngine.Random.Range(0f, 100f);
+
+            Vector3 dir = other.transform.position - transform.position;
+            dir.Normalize();
+
+            CameraManager.Instance.CameraShake(dir , 0.05f);
+            
+            if(criticalRandom <= _criticalPercent)
+                damaged.Damaged(_atk * _criticalDamage,TextType.EnemyCritical);
+            else
+                damaged.Damaged(_atk,TextType.EnemyDamage);
+            
         }
 
     }

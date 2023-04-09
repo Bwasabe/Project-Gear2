@@ -8,7 +8,9 @@ public abstract class BaseEntityDamaged : MonoBehaviour
     [SerializeField]
     protected float _maxHp;
 
-    protected float _hp;
+    public float MaxHp => _maxHp;
+
+    public float Hp{get;protected set;}
 
     public event Action<float, TextType> OnDamageTaken;
 
@@ -16,16 +18,16 @@ public abstract class BaseEntityDamaged : MonoBehaviour
 
     protected virtual void Start()
     {
-        _hp = _maxHp;
+        Hp = _maxHp;
     }
     
     public virtual void Damaged(float damage, TextType type)
     {
-        _hp -= damage;
+        Hp -= damage;
 
         OnDamageTaken?.Invoke(damage, type);
 
-        if(_hp <= 0f)
+        if(Hp <= 0f)
         {
             OnDied?.Invoke();
             PoolManager.Destroy(gameObject);

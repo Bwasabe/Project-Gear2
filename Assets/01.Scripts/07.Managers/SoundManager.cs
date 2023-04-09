@@ -35,7 +35,7 @@ public class SoundManager : MonoSingleton<SoundManager>
     {
         InitializeChildObject();
         InitializePlayMethod();
-        Play(AudioType.BGM, _bgms[SceneManager.GetActiveScene().buildIndex]);
+        // Play(AudioType.BGM, _bgms[SceneManager.GetActiveScene().buildIndex]);
     }
 
     private void InitializeChildObject()
@@ -75,6 +75,8 @@ public class SoundManager : MonoSingleton<SoundManager>
 
     private void PlaySFX(AudioClip clip)
     {
+        Debug.Log("SFX 출력");
+
         if(clip == null)
         {
             Debug.Log("Clip is Null");

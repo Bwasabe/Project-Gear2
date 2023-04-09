@@ -8,6 +8,7 @@ public class CharacterDamaged : BaseEntityDamaged, IGetComponentAble
 {
     // TODO: 데미지 텍스트 띄우기
 
+
     public override void Damaged(float damage, TextType textType)
     {
         base.Damaged(damage, textType);

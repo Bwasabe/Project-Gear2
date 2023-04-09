@@ -5,8 +5,17 @@ using UnityEngine;
 using UnityEngine.UI;
 
 [RequireComponent(typeof(Button))]
-public class CharacterSkillUI : MonoBehaviour
+public class PlayerSkillUI : MonoBehaviour
 {
+    [SerializeField]
+    private Image _skillIcon;
+
+    [SerializeField]
+    private Image _background;
+
+    [SerializeField]
+    private Image _cooldownImage;
+
     private CharacterSkillBase _characterSkillBase;
 
     private Button _button;
@@ -23,18 +32,30 @@ public class CharacterSkillUI : MonoBehaviour
 
     private void OnClickSkillUI()
     {
+        if(!_characterSkillBase.IsCanUseSkill)return;
         _characterSkillBase.ExecuteSkill();
+
+        
+    }
+
+    private void SetCooldownImageFillAmount(float percent)
+    {
+        _cooldownImage.fillAmount = percent;
     }
 
     public void SetSkillBase(CharacterSkillBase skillBase)
     {
+        if(_characterSkillBase != null)
+        {
+            _characterSkillBase.OnSkillTimerChanged -= SetCooldownImageFillAmount;
+        }
+
         _characterSkillBase = skillBase;
+        _skillIcon.sprite = skillBase.SkillIcon;
+
+        _characterSkillBase.OnSkillTimerChanged += SetCooldownImageFillAmount;
     }
 
-
-
-
-
-
+    
 
 }

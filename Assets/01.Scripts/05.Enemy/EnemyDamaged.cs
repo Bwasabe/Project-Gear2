@@ -18,6 +18,6 @@ public class EnemyDamaged : BaseEntityDamaged, IGetComponentAble, IPoolReturnAbl
     }
     public void Return()
     {
-        _hp = _maxHp;
+        Hp = _maxHp;
     }
 }

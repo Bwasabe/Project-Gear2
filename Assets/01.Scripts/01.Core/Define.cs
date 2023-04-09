@@ -90,7 +90,6 @@ public static class Define
     public static T IntToEnum<T>(int value) where T : Enum
     {
         var s = new Shell<T>();
-        //s.Enum = e;
         unsafe
         {
             int* pi = &s.Int;

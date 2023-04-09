@@ -6,7 +6,7 @@ public class PlayerSkillUIManager : MonoSingleton<PlayerSkillUIManager>
 {
 
     [SerializeField]
-    private CharacterSkillUI[] _skillUIs;
+    private PlayerSkillUI[] _skillUIs;
 
 
     public void AddSkill(CharacterSkillBase skillBase, int index)
