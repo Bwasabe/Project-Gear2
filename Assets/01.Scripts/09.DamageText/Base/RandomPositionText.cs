@@ -44,7 +44,8 @@ public class RandomPositionText : BaseDamageText
         );
 
         _sequence.Join(
-            _text.DOFade(_textData.TextEndAlpha, _textData.AlphaDuration)
+            _text.DOFade(_textData.TextEndAlpha, _textData.Alph
+        aDuration)
         );
 
 
